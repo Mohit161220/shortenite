@@ -12,7 +12,7 @@ const SideList = () => {
               width="32"
               height="32"
               viewBox="0 0 24 24"
-              stroke-width="2"
+              stroke-width="1"
               stroke="currentColor"
               fill="none"
               stroke-linecap="round"
@@ -24,7 +24,7 @@ const SideList = () => {
               <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"></path>
             </svg>
           </span>
-          <span className="text-xl font-semibold mt-2">Links</span>
+          <span className="text-xl font-medium mt-2">Links</span>
         </div>
       </li>
       <li className="hover:bg-gray-100 hover:rounded-lg m-3 h-12 my-4">
@@ -36,7 +36,7 @@ const SideList = () => {
               width="32"
               height="32"
               viewBox="0 0 24 24"
-              stroke-width="2"
+              stroke-width="1"
               stroke="currentColor"
               fill="none"
               stroke-linecap="round"
@@ -57,7 +57,7 @@ const SideList = () => {
               <path d="M20 17l0 3"></path>
             </svg>
           </span>
-          <span className="text-xl font-semibold mt-2">QR Codes</span>
+          <span className="text-xl font-medium mt-2">QR Codes</span>
         </div>
       </li>
       <li className="hover:bg-gray-100 hover:rounded-lg m-3 h-12 my-4">
@@ -69,7 +69,7 @@ const SideList = () => {
               width="32"
               height="32"
               viewBox="0 0 24 24"
-              stroke-width="2"
+              stroke-width="1"
               stroke="currentColor"
               fill="none"
               stroke-linecap="round"
@@ -84,7 +84,7 @@ const SideList = () => {
               <path d="M4 16h3"></path>
             </svg>
           </span>
-          <span className="text-xl font-semibold mt-2">Link-in-Bio</span>
+          <span className="text-xl font-medium mt-2">Link-in-Bio</span>
         </div>
       </li>
       <li className="hover:bg-gray-100 hover:rounded-lg m-3 h-12 my-4">
@@ -96,7 +96,7 @@ const SideList = () => {
               width="32"
               height="32"
               viewBox="0 0 24 24"
-              stroke-width="2"
+              stroke-width="1"
               stroke="currentColor"
               fill="none"
               stroke-linecap="round"
@@ -107,7 +107,7 @@ const SideList = () => {
               <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
             </svg>
           </span>
-          <span className="text-xl font-semibold mt-2">Settings</span>
+          <span className="text-xl font-medium mt-2">Settings</span>
         </div>
       </li>
     </ul>
