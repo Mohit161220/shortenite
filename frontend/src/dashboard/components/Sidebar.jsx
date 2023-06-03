@@ -1,10 +1,13 @@
 import React from "react";
+
 import SideList from "./SideList";
 
 const Sidebar = () => {
   return (
-    <div className="col-span-2 bg-gray-400 h-screen">
-      <div className="h-28 bg-slate-500"><h1>Title</h1></div>
+    <div className="col-span-2 bg-white h-screen border-r-2">
+      <div className="border-b-2 text-4xl font-black h-16 text-center pt-2 text-indigo-600" >
+        SHORTENITE
+      </div>
     <SideList/>
     </div>
   );
