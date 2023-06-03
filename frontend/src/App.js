@@ -1,10 +1,15 @@
-import Dashboard from "./dashboard/Dashboard";
+import * as React from 'react'
+import { ChakraProvider } from '@chakra-ui/react'
 
+
+import Dashboard from "./dashboard/Dashboard.jsx"
 
 function App() {
-  return (
-   <Dashboard/>
-  );
-}
 
+  return (
+    <ChakraProvider>
+      <Dashboard />
+    </ChakraProvider>
+  )
+}
 export default App;

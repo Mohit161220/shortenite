@@ -1,10 +1,11 @@
 import React from "react";
+import NavDropDown from "./NavDropDown";
 
 const Navbar = () => {
   return (
-    <div className="h-16 border-2 border-t-0 rounded-lg grid grid-cols-12 content-center sticky top-0 bg-slate-200">
+    <div className="h-16 border-2 border-t-0 rounded-lg grid grid-cols-12 content-center sticky top-0 ">
       <div className="col-span-6">
-        <form className="max-w-sm px-4 ">
+        <form className="max-w-sm px-4 pt-1">
           <div className="relative">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -28,17 +29,7 @@ const Navbar = () => {
           </div>
         </form>
       </div>
-
-      <div className="flex items-center space-x-4 col-span-6 justify-self-end mr-4">
-        <img
-          className="w-10 h-10 rounded-full bg-indigo-500"
-          src=""
-          alt=""
-        />
-        <div className="text-xl">
-          Mohit Singh Rana
-        </div>
-      </div>
+      <NavDropDown/>
     </div>
   );
 };
