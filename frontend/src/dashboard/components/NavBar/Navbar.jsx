@@ -29,7 +29,7 @@ const Navbar = () => {
           </div>
         </form>
       </div>
-      <NavDropDown/>
+      <NavDropDown />
     </div>
   );
 };

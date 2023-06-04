@@ -3,7 +3,7 @@ import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 
 const NavDropDown = () => {
   return (
-    <div className="col-span-6 justify-self-end px-2">
+    <div className="col-span-6 justify-self-end px-2 cursor-pointer">
       <Menu>
         <MenuButton className="hover:bg-gray-100 hover:rounded p-1">
           <div className="flex items-center space-x-4-end mr-4 ">
