@@ -8,7 +8,7 @@ const Sidebar = () => {
     <div className="col-span-2 bg-white h-full border-r-2 ">
       <div className="fixed h-full w-64 px-2">
         <Link to="/">
-        <div className="border-b-2 text-3xl font-black h-20 text-center pt-2 text-indigo-600 hover:text-indigo-400">
+        <div className="border-b-2 text-3xl font-black h-20 text-center text-indigo-600 hover:text-indigo-400 pt-6">
           SHORTENITE
         </div>
         </Link>

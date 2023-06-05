@@ -3,7 +3,7 @@ import NavDropDown from "./NavDropDown";
 
 const Navbar = () => {
   return (
-    <div className="h-16 border-2 border-t-0 rounded-lg grid grid-cols-12 content-center sticky top-0 ">
+    <div className="h-20 border-2 border-t-0 rounded-lg grid grid-cols-12 content-center sticky top-0 bg-white">
       <div className="col-span-6">
         <form className="max-w-sm px-4 pt-1">
           <div className="relative">

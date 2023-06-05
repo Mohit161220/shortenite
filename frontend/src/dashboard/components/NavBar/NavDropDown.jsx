@@ -1,5 +1,5 @@
 import React from "react";
-import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem, Avatar } from "@chakra-ui/react";
 
 const NavDropDown = () => {
   return (
@@ -7,10 +7,10 @@ const NavDropDown = () => {
       <Menu>
         <MenuButton className="hover:bg-gray-100 hover:rounded p-1">
           <div className="flex items-center space-x-4-end mr-4 ">
-            <img
-              className="w-10 h-10 rounded-full bg-indigo-500"
-              src=""
-              alt=""
+            <Avatar
+              size="md"
+              name="Segun Adebayo"
+              src="https://bit.ly/broken-link"
             />
             <div className="text-xl pl-3">Mohit Singh Rana</div>
           </div>
