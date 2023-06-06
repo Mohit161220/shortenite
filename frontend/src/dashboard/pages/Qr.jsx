@@ -2,6 +2,7 @@ import React from 'react'
 import QrList from '../components/QrList'
 import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
 import { Button} from '@chakra-ui/react'
+import { Link } from "react-router-dom";
 
 const Qr = () => {
   return (
@@ -11,7 +12,10 @@ const Qr = () => {
 
         <span className="col-span-1 text-4xl my-6 pl-8 font-semibold ">QR</span>
 
-        <Button className="col-start-2 col-span-1 my-6 w-3/5 " colorScheme="blue" >Create New</Button>
+        <Link to={`/dashboard/qrs/create_new_qr`}>
+          <Button className="col-start-2 col-span-1 my-6 w-3/5 " colorScheme="blue" >Create New</Button>
+        </Link>
+
         <div className="col-start-12 col-span-1">
           <Menu>
             <MenuButton className= "my-6">
