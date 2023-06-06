@@ -8,9 +8,10 @@ import Links from "./dashboard/pages/Links.jsx";
 import Qr from "./dashboard/pages/Qr.jsx";
 import Settings from "./dashboard/pages/Settings.jsx";
 import LinkInBio from "./dashboard/pages/LinkInBio.jsx";
-import Details from "./dashboard/components/Details.jsx";
+import Details from "./dashboard/pages/Details.jsx";
 import CreateNewLink from "./dashboard/components/CreateNewLink.jsx";
 import CreateNewQr from "./dashboard/components/CreateNewQr.jsx";
+
 function App() {
   return (
     <ChakraProvider>
