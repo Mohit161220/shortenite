@@ -8,7 +8,7 @@ import Links from "./dashboard/pages/Links.jsx";
 import Qr from "./dashboard/pages/Qr.jsx";
 import Settings from "./dashboard/pages/Settings.jsx";
 import LinkInBio from "./dashboard/pages/LinkInBio.jsx";
-import Details from "./dashboard/components/Details.jsx";
+import Details from "./dashboard/pages/Details.jsx";
 
 function App() {
   return (
