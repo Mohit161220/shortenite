@@ -2,7 +2,7 @@ import React from 'react'
 import LinkList from '../components/LinkList'
 import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
 import { Button} from '@chakra-ui/react'
-
+import { Link } from "react-router-dom";
 
 
 const Links = () => {
@@ -13,7 +13,9 @@ const Links = () => {
 
         <span className="col-span-1 text-4xl my-6 pl-8 font-semibold ">Links</span>
         
-        <Button className="col-start-2 col-span-1 my-6 w-3/5 " colorScheme="blue" >Create New</Button>
+        <Link to={`/dashboard/links/create_new_link`}>
+          <Button className="col-start-2 col-span-1 my-6 w-3/5 " colorScheme="blue" >Create New</Button>
+        </Link>
 
         <div className="col-start-12 col-span-1">
           <Menu>
