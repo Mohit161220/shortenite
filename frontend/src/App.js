@@ -11,12 +11,18 @@ import LinkInBio from "./dashboard/pages/LinkInBio.jsx";
 import Details from "./dashboard/pages/Details.jsx";
 import CreateNewLink from "./dashboard/components/CreateNewLink.jsx";
 import CreateNewQr from "./dashboard/components/CreateNewQr.jsx";
+import LogIn from "./dashboard/pages/LogIn.jsx";
+import SignUp from "./dashboard/pages/SignUp.jsx"
+import ForgotPassword from "./dashboard/pages/ForgotPassword.jsx"
 
 function App() {
   return (
     <ChakraProvider>
       <Routes> 
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/log_in" element={<LogIn />} />
+        <Route exact path="/sign_up" element={<SignUp />} />
+        <Route exact path="/forgot_password" element={<ForgotPassword />} />
         <Route exact path="/dashboard" element={<Dashboard />}>
           <Route exact path="links" element={<Links />} />
           <Route path="links/create_new_link" element={<CreateNewLink />} />
