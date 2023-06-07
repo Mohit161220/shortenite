@@ -1,6 +1,7 @@
 import React from 'react'
 import { Input, Button,  } from '@chakra-ui/react';
 import { Link } from "react-router-dom";
+
 const LogIn = () => {
     return(
        <div className="flex flex-col place-content-center place-items-center">
@@ -46,8 +47,7 @@ const LogIn = () => {
           </div>
 
       </div>
-      
-
+  
     )
 }
 
