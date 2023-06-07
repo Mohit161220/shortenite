@@ -1,5 +1,5 @@
 module.exports.signUp = function(req, res){
-
+    
 };
 
 module.exports.signIn = function(req, res){

@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const db = require('./config/mongoose');
+
 const port = 5000;
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended : true }));
 app.use('/', require('./routes'));
 app.get('/:id', require('./routes/index'));
+
 app.listen(port, function(error){
     if(error) {
         console.log("Error in running server : " + error);
