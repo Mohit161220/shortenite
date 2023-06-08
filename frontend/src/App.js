@@ -16,7 +16,7 @@ import SignUp from "./dashboard/pages/SignUp.jsx"
 import ForgotPassword from "./dashboard/pages/ForgotPassword.jsx"
 
 function App() {
-  return (
+    return (
     <ChakraProvider>
       <Routes> 
         <Route exact path="/" element={<Home />} />
