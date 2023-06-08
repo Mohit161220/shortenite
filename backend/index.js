@@ -6,6 +6,7 @@ const cors = require('cors');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const session = require('express-session');
+const fetch = require('node-fetch');
 const MongoStore = require('connect-mongo');
 const bodyParser = require('body-parser');
 const db = require('./config/mongoose');
@@ -38,7 +39,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 // app.use(passportLocal.setAuthenticatedUser);
-
+app.set('trust proxy', true);
 app.use('/', require('./routes'));
 app.get('/:id', require('./routes/index'));
 
