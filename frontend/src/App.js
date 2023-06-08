@@ -14,6 +14,7 @@ import CreateNewQr from "./dashboard/components/CreateNewQr.jsx";
 import LogIn from "./dashboard/pages/LogIn.jsx";
 import SignUp from "./dashboard/pages/SignUp.jsx"
 import ForgotPassword from "./dashboard/pages/ForgotPassword.jsx"
+import Loading from "./home/Loading.jsx";
 
 function App() {
     return (
@@ -33,6 +34,7 @@ function App() {
           <Route exact path="settings" element={<Settings />} />
           <Route exact path="link_in_bio" element={<LinkInBio />} />
         </Route>
+        <Route exact path="/:shortUrl" element={<Loading />} />
       </Routes>
     </ChakraProvider>
   );

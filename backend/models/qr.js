@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const linkSchema = mongoose.Schema({
+const qrSchema = mongoose.Schema({
     key: {
         type: String,
         required: true
@@ -20,4 +20,4 @@ const linkSchema = mongoose.Schema({
     timestamps : true
 });
 
-module.exports = mongoose.model("Link", linkSchema)
+module.exports = mongoose.model("QRcode", qrSchema)
