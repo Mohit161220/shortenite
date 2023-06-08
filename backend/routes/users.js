@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const usersController = require('../controllers/users_controller');
-// localhost:5000/users/sign-up
+const passport = require('passport');
+
 router.post('/sign-up', usersController.signUp); 
-// localhost:5000/users/sign-in
-router.post('/sign-in', usersController.signIn);
-// localhost:5000/users/sign-out 
-router.get('/sign-out', usersController.signOut); 
-// localhost:5000/users/me
-router.get('/me', usersController.getAccountDetailsOfCurrentUser);
-// localhost:5000/users/me
-router.delete('/me', usersController.deleteProfileOfCurrentUser);
+router.post('/sign-in', passport.authenticate('local', {
+    failureRedirect : '/users/login-fail'
+}) , usersController.signIn);
+router.get('/login-fail', usersController.loginFail);
+router.get('/unauthorized', usersController.unauthorized);  
+router.get('/sign-out', passport.checkAuthentication, usersController.signOut); 
+router.get('/me', passport.checkAuthentication, usersController.getAccountDetailsOfCurrentUser);
+router.delete('/me', passport.checkAuthentication, usersController.deleteProfileOfCurrentUser);
 
 module.exports = router;
