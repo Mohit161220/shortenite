@@ -6,6 +6,7 @@ console.log('Routes -> Index.js');
 
 router.use('/users', require('./users'));
 router.use('/links', require('./links'));
+router.use('/qr', require('./qr'));
 router.get('/:id', linksController.handleRedirect);
 
 module.exports = router;
