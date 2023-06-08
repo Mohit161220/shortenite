@@ -25,3 +25,13 @@ module.exports.createQr = async function(req, res){
         data : ans
     });
 };
+
+module.exports.delete = async function(req, res){
+    let qr = await QR.deleteOne({
+        _id : req.params.id
+    })
+    return res.status(200).json({
+        message : 'Qr Deleted',
+        data : qr
+    })
+}

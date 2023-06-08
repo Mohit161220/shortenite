@@ -1,12 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import axios from "../axios"
 
 const Home = () => {
-  const ChangeUrl=async ()=>{
-    const res= await axios.get('/$2b$10$hQoW10fhk4X2MYq1q3fJBuz3DQ7pTsOxVxQP1UIbqMxdWQPZM7vC.');
-
-  }
   return (
     <div>
       <div className="mx-10">
@@ -44,10 +39,6 @@ const Home = () => {
           </Link>
         </nav>
       </div>
-      <div >
-        <button onClick={ChangeUrl} className="border-4 bg-blue-300 p-8">Press Me</button>
-      </div>
-      <div><img src="" alt="" /></div>
     </div>
   );
 };

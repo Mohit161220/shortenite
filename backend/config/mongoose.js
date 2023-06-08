@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost:27017/shortenite", {
+mongoose.connect('mongodb://localhost:27017/shortenite',{
     useNewUrlParser : true,
     useUnifiedTopology : true
 });
