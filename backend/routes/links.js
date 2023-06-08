@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require('passport');
 const linksController = require('../controllers/links_controller');
 
-// limk status route and controller to be added..
+// link status route and controller to be added..
 
 router.get('/', passport.checkAuthentication, linksController.getAllLinksofUser);
 router.post('/create-link', passport.checkAuthentication , linksController.createLink);
