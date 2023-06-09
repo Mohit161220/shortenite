@@ -4,7 +4,13 @@ const QRCode = require('qrcode');
 const QR = require('../models/qr')
 const LINK = require('../models/links');
 const USER = require('../models/user');
-const linksController = require('./links_controller');
+const generateKey = require('../lib/keyGenerater');
+
+async function generateRandomString(destinationUrl){
+    let salt = await bcrypt.genSalt(saltRounds);
+    shortUrl = await bcrypt.hash(destinationUrl, salt);
+    return shortUrl;
+}
 
 //                      TODO
 module.exports.getAllQrofUser = function(req, res){
@@ -30,7 +36,7 @@ module.exports.createQr = async function(req, res){
         user : req.user.id
     });
 
-    let shortKeyForLink = await generateRandomString(destinationUrl);
+    let shortKeyForLink = await generateKey();
     // also need to check whether this link exists in database or not.
     let linkForThisQr = await LINK.create({
         key : shortKeyForLink,
@@ -57,6 +63,7 @@ module.exports.createQr = async function(req, res){
     });
 };
 
+// NEED SAME WORK AS LINK DELETE
 module.exports.delete = async function(req, res){
     let qr = await QR.deleteOne({
         _id : req.params.id
@@ -65,11 +72,4 @@ module.exports.delete = async function(req, res){
         message : 'Qr Deleted',
         data : qr
     })
-}
-
-// generates random 7 character string
-async function generateRandomString(destinationUrl){
-    let salt = await bcrypt.genSalt(saltRounds);
-    shortUrl = await bcrypt.hash(destinationUrl, salt);
-    return shortUrl;
 }

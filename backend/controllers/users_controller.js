@@ -13,8 +13,7 @@ module.exports.signUp = async function(req, res){
             let user = {
                 username : req.body.username,
                 email : req.body.email,
-                password : req.body.password,
-                avatar : req.body.avatar
+                password : req.body.password
             }
             let salt = Encryption.generateSalt();
             let hashedPassword = Encryption.generateHashedPassword(salt, req.body.password);
@@ -38,8 +37,6 @@ module.exports.signUp = async function(req, res){
 };
 
 module.exports.signIn = function(req, res){
-    console.log('sign-in succesfull');
-    // console.log(req.user);
     return res.status(200).json({
         message : 'sign-in succesfull',
         data : req.user
@@ -48,13 +45,15 @@ module.exports.signIn = function(req, res){
 
 module.exports.loginFail = function(req, res){
     return res.status(401).json({
-        message : 'Login failed'
+        message : 'Login failed',
+        data : null
     });
 };
 
 module.exports.unauthorized = function(req, res){
     return res.status(401).json({
-        message : 'You are Unauthorized'
+        message : 'You are Unauthorized',
+        data : null
     });
 };
 
@@ -69,7 +68,8 @@ module.exports.signOut = function(req, res){
             })
         }
         return res.status(200).json({
-            message : 'Logged out'
+            message : 'Logged out',
+            data : req.user
         });
     });
 };
@@ -77,12 +77,11 @@ module.exports.signOut = function(req, res){
 module.exports.getAccountDetailsOfCurrentUser = async function(req, res){
     try {
         let user = await USER.findById(req.user.id);
-        console.log("==========**********===========");
-        console.log(req.session);
         if(!user) {
             return res.status(401).json({
-                message : 'Unauthorized'
-            })
+                message : 'Unauthorized',
+                data : null
+            });
         }
         let newUser = {
             id : user.id,
@@ -101,7 +100,13 @@ module.exports.getAccountDetailsOfCurrentUser = async function(req, res){
     }
 };
 
-// NEED TO DO SOME CHECKING
+/**
+ * 
+ * - Before DELETING user profile, Delete ALL LINKS AND QR created by USER
+ * - Delete EMAIL, USERNAME, PASSWORD of that USER
+ *  
+ */
+
 module.exports.deleteProfileOfCurrentUser = async function(req, res){
     let use = await USER.findByIdAndDelete(req.user.id);
     return res.status(200).json({
