@@ -13,7 +13,13 @@ module.exports.getAllQrofUser = function(req, res){
 module.exports.createQr = async function(req, res){
     let title = req.body.title;
     let destinationUrl = req.body.url;
-    let qr = await QRCode.toDataURL(destinationUrl);
+    try {
+        let qr = await QRCode.toDataURL(destinationUrl);
+    } catch (error) {
+        console.log(error)
+        res.status(400).json(error)
+    }
+    
      
     let ans = await QR.create({
         key : qr,

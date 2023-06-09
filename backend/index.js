@@ -27,7 +27,7 @@ app.use(session({
         maxAge : 1000 * 60 * 60 * 24
     },
     store : MongoStore.create({
-        mongoUrl : 'momongodb+srv://Mohit:mohit123@cluster0.y9fklyw.mongodb.net/?retryWrites=true&w=majority',
+        mongoUrl : 'mongodb+srv://Mohit:mohit123@cluster0.y9fklyw.mongodb.net/?retryWrites=true&w=majority',
         autoRemove : 'disabled'
     }, function(error){
         if(error) console.log('Error in MongoStore : ' + error);
