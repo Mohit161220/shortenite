@@ -59,6 +59,7 @@ module.exports.unauthorized = function(req, res){
 };
 
 module.exports.signOut = function(req, res){
+    console.log(req.user.id);
     console.log(`${req.user.email} signed out!`);
     req.logout(function(err){
         if(err){
@@ -76,6 +77,8 @@ module.exports.signOut = function(req, res){
 module.exports.getAccountDetailsOfCurrentUser = async function(req, res){
     try {
         let user = await USER.findById(req.user.id);
+        console.log("==========**********===========");
+        console.log(req.session);
         if(!user) {
             return res.status(401).json({
                 message : 'Unauthorized'

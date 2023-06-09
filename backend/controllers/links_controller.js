@@ -35,12 +35,8 @@ function validateOne(payload) {
 }
 
 module.exports.getAllLinksofUser = async function(req, res){
-    // console.log(req.headers['user-agent']);
-    // let ans = await getUserAgentDetails(req.headers['user-agent']);
-    let ans = await getIpAddressDetailsIpData('106.206.196.106');
     return res.status(200).json({
-        message : 'Gotcha',
-        data : ans
+        message : 'Gotcha'
     });
 };
 
