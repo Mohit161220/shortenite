@@ -1,8 +1,13 @@
+const validator = require('validator');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const validator = require('validator');
 const LINK = require('../models/links');
 const USER = require('../models/user');
+const getIpAddressDetailsIpData = require('../utils/ipAddressDetailsIpData');
+const getIpAddressDetailsGeoIp = require('../utils/ipAddressDetailsGeoIp-lite');
+const getIpAddressDetailsIpStack = require('../utils/ipAddressDetailsIpStack');
+const getUserAgentDetails = require('../utils/userAgentDetails');
+const insertHit = require('../utils/hitInsert');
 
 function validateOne(payload) {
     let errors = {};
@@ -29,11 +34,13 @@ function validateOne(payload) {
     }
 }
 
-module.exports.getAllLinksofUser = function(req, res){
-    // get all the links of user who is logged in..
-    console.log(req.user.links);
+module.exports.getAllLinksofUser = async function(req, res){
+    // console.log(req.headers['user-agent']);
+    // let ans = await getUserAgentDetails(req.headers['user-agent']);
+    let ans = await getIpAddressDetailsIpData('106.206.196.106');
     return res.status(200).json({
-        message : 'Gotcha'
+        message : 'Gotcha',
+        data : ans
     });
 };
 
@@ -70,8 +77,11 @@ module.exports.createLink = async function(req, res){
     }
 };
 
+/*
+** ---------- To Handle Redirect ----------
+*/
+
 module.exports.handleRedirect = async function(req, res){
-    console.log('coming here');
     const keyFromReq = req.params.id;
     const link = await LINK.find({
         key : keyFromReq
@@ -81,6 +91,9 @@ module.exports.handleRedirect = async function(req, res){
             message : 'Link not found'
         });
     }
+    let ip = req.socket.remoteAddress;
+    let userAgent = req.headers['user-agent'];
+    await insertHit(ip, userAgent, link[0]._id);
     return res.status(200).json({
         message : 'Link Found',
         data : link[0].url
@@ -94,29 +107,14 @@ module.exports.edit = async function(req, res){
         let validationResult = validateOne(editFormBody);
         if(!validationResult.success){
             throw new Error('Edit form validation failed');
-            // return res.status(400).json({
-            //     message : 'Edit form validation failed',
-            //     errors : validationResult.errors
-            // })
         }
         let link  = await LINK.findById(req.params.id);
         if(!link) {
             throw new Error('link not found');
-            // console.log('link not found');
-            // return res.status(404).json({
-            //     message : 'link not found',
-            //     data : link
-            // });
         }
-        // console.log(req.body.key);
         let linkKey = await LINK.findOne({key : req.body.key});
         if(linkKey && link.id !== linkKey.id){
             throw new Error('KEY Already in use');
-            // console.log('KEY Already in use');
-            // return res.status(404).json({
-            //     message : 'key Already in use',
-            //     data : req.body.key
-            // });
         }
         link.key = req.body.key;
         link.title = req.body.title;

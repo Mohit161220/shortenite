@@ -15,7 +15,17 @@ const linkSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    hitCount : {
+        type: mongoose.Schema.Types.Number,
+        default: 0
+    },
+    hits: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Hits'
+        }
+    ]
 }, {
     timestamps : true
 });
