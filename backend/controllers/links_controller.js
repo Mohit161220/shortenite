@@ -3,11 +3,8 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const LINK = require('../models/links');
 const USER = require('../models/user');
-const getIpAddressDetailsIpData = require('../utils/ipAddressDetailsIpData');
-const getIpAddressDetailsGeoIp = require('../utils/ipAddressDetailsGeoIp-lite');
-const getIpAddressDetailsIpStack = require('../utils/ipAddressDetailsIpStack');
-const getUserAgentDetails = require('../utils/userAgentDetails');
 const insertHit = require('../utils/hitInsert');
+const generateKey = require('../lib/keyGenerater');
 
 function validateOne(payload) {
     let errors = {};
@@ -34,26 +31,27 @@ function validateOne(payload) {
     }
 }
 
+async function generateRandomString(destinationUrl){
+    let salt = await bcrypt.genSalt(saltRounds);
+    shortUrl = await bcrypt.hash(destinationUrl, salt);
+    return shortUrl;
+}
+
+// ----             TODO
 module.exports.getAllLinksofUser = async function(req, res){
-    // console.log(req.headers['user-agent']);
-    // let ans = await getUserAgentDetails(req.headers['user-agent']);
-    let ans = await getIpAddressDetailsIpData('106.206.196.106');
     return res.status(200).json({
-        message : 'Gotcha',
-        data : ans
+        message : 'Gotcha'
     });
 };
 
 module.exports.createLink = async function(req, res){
     try {
-        console.log('GOT INSIDE CREATE LINK');
         let title = req.body.title;
         let destinationUrl = req.body.url;
         let shortUrl = req.body.key;
         if(!shortUrl){
-            shortUrl = await generateRandomString(destinationUrl);
+            shortUrl = await generateKey();
         }
-
         let ans = await LINK.create({
             key : shortUrl,
             url : destinationUrl,
@@ -69,6 +67,7 @@ module.exports.createLink = async function(req, res){
             message : 'link created',
             data : ans
         });
+        
     } catch (error) {
         console.log(error);
         return res.status(400).json({
@@ -101,7 +100,6 @@ module.exports.handleRedirect = async function(req, res){
 };
 
 module.exports.edit = async function(req, res){
-    // edit the link
     try {
         let editFormBody = req.body;
         let validationResult = validateOne(editFormBody);
@@ -141,11 +139,4 @@ module.exports.delete = async function(req, res){
         message : 'Link Deleted',
         data : link
     })
-}
-
-// generates random 7 character string
-async function generateRandomString(destinationUrl){
-    let salt = await bcrypt.genSalt(saltRounds);
-    shortUrl = await bcrypt.hash(destinationUrl, salt);
-    return shortUrl;
 }
