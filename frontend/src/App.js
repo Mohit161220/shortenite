@@ -15,6 +15,7 @@ import LogIn from "./dashboard/pages/LogIn.jsx";
 import SignUp from "./dashboard/pages/SignUp.jsx"
 import ForgotPassword from "./dashboard/pages/ForgotPassword.jsx"
 import Loading from "./home/Loading.jsx";
+import EditLink from "./dashboard/components/EditLink.jsx";
 import Error from "./home/Error.jsx";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/dashboard" element={<Dashboard />}>
           <Route exact path="links" element={<Links />} />
           <Route path="links/create_new_link" element={<CreateNewLink />} />
+          <Route exact path ="links/edit/:id" element={<EditLink />} />
           <Route path="links/:id" element={<Details />} />
           <Route exact path="qrs" element={<Qr />} />
           <Route path="qrs/create_new_qr" element={<CreateNewQr />} />
