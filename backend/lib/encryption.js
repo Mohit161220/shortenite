@@ -1,5 +1,7 @@
+/**
+ * README.MD -> https://datatracker.ietf.org/doc/html/rfc8018#appendix-A.2
+ */
 const crypto = require('crypto');
-// README.MD -> https://datatracker.ietf.org/doc/html/rfc8018#appendix-A.2
 module.exports.generateSalt = function(){
     return crypto.randomBytes(32).toString('hex');
 }

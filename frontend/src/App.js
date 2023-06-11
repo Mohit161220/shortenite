@@ -16,6 +16,7 @@ import SignUp from "./dashboard/pages/SignUp.jsx"
 import ForgotPassword from "./dashboard/pages/ForgotPassword.jsx"
 import Loading from "./home/Loading.jsx";
 import EditLink from "./dashboard/components/EditLink.jsx";
+import Error from "./home/Error.jsx";
 
 function App() {
     return (
@@ -36,6 +37,7 @@ function App() {
           <Route exact path="settings" element={<Settings />} />
           <Route exact path="link_in_bio" element={<LinkInBio />} />
         </Route>
+        <Route exact path="/error" element={<Error/>} />
         <Route exact path="/:shortUrl" element={<Loading />} />
       </Routes>
     </ChakraProvider>

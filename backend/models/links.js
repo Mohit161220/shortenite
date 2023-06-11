@@ -25,7 +25,11 @@ const linkSchema = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Hits'
         }
-    ]
+    ],
+    qrcode : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'QRCode'
+    }
 }, {
     timestamps : true
 });

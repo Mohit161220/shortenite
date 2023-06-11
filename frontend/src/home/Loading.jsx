@@ -1,22 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
-import axios from "../axios";
+import axios from "axios";
+
 
 const Loading = () => {
-  //   const [shortUrl, changeShortUrl] = useState(useParams().shortUrl);
-  const shortUrl=useParams().shortUrl
-    const getUrl=async ()=>{
-        try {
-            const response=await axios.get(`/${shortUrl}`)
-        } catch (error) {
-            
-        }
-    }
+  const [shortUrl, changeShortUrl] = useState(useParams().shortUrl);
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const Url = getUrl();
-    window.location.replace(`https://www.${Url}.com`);
-  }, []);
+    console.log(shortUrl);
+    async function getUrl() {
+      try {
+        console.log("starting");
+        const res = await axios.get(shortUrl);
+        console.log(res);
+        const url = res.data.data;
+        console.log(`https://${url}`)
+        window.location.replace(`https://${url}`);
+      } catch (error) {
+        console.log("Error Occured");
+        console.log(error);
+        navigate("/error");
+      }
+    }
+    getUrl();
+  },[]);
   return <div>Loading </div>;
 };
 
