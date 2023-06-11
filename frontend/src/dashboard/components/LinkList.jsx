@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import EditDeleteButton from "./EditDeleteButton";
 import ViewDetailsButton from "./ViewDetailsButton";
+import axios from "axios";
 
 const data = [
   {
@@ -26,6 +28,16 @@ const data = [
 ];
 
 const LinkList = () => {
+
+  const getData=async ()=>{
+    const res=await axios.get('/links')
+    console.log(res);
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   const link = data.map((l) => {
     return (
       <div className=" mt-2 mx-2 border-b-2">
@@ -80,9 +92,9 @@ const LinkList = () => {
             </a> */}
           </div>
           <div className="mb-6">
-            <EditDeleteButton/>
+            <EditDeleteButton />
             <div>
-            <ViewDetailsButton type="links" id={l.id}/>
+              <ViewDetailsButton type="links" id={l.id} />
             </div>
           </div>
         </div>
