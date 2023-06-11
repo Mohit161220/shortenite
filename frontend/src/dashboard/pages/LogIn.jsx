@@ -15,12 +15,13 @@ const LogIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/users/sign-in',{email,password});
-      
+      const response = await axios.post("/users/sign-in", { email, password });
       console.log(response);
+      setAuth(true);
+      navigate("/dashboard");
     } catch (err) {
-      console.log(err)
-      
+      console.log(err);
+      setAuth(false);
     }
   };
 

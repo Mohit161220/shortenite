@@ -11,6 +11,8 @@ import axios from "axios";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 axios.defaults.baseURL = "http://localhost:5000/";
+axios.defaults.withCredentials = true;
+
 root.render(
   <BrowserRouter>
     <AuthProvider>
