@@ -93,7 +93,6 @@ const LinkList = () => {
           </div>
           <div className="mb-6">
             <EditDeleteButton type="links" id={l.id}/>
-            <EditDeleteButton />
             <div>
               <ViewDetailsButton type="links" id={l.id} />
             </div>

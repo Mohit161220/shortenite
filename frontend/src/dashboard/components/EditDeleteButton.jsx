@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const EditDeleteButton = (props) => {
   return (
     <div className="flex my-3 mx-10">
-        <Link to={`/dashboard/link/edit${props.id}`}>
+        <Link to={`/dashboard/links/edit/${props.id}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
