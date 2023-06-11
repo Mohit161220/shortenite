@@ -1,6 +1,7 @@
 import React from 'react'
+import { Link } from "react-router-dom";
 
-const EditDeleteButton = () => {
+const EditDeleteButton = (props) => {
   return (
     <div className="flex my-3 mx-10">
         <svg
