@@ -36,7 +36,7 @@ const LogIn = () => {
             <Button className="mt-10 mx-12" colorScheme='blue'>Log In</Button>
 
             <div className="flex mt-4 mr-14 mb-12 text-base font-medium  justify-end">
-              <span className='font-normal'>Didn't have a account?</span>
+              <span className='font-normal'>Didn't have an account?</span>
               <Link to="/sign_up" className="ml-2">
                 <div className=" text-blue-700 underline">
                 Sign up

@@ -80,7 +80,7 @@ const LinkList = () => {
             </a> */}
           </div>
           <div className="mb-6">
-            <EditDeleteButton/>
+            <EditDeleteButton type="links" id={l.id}/>
             <div>
             <ViewDetailsButton type="links" id={l.id}/>
             </div>
