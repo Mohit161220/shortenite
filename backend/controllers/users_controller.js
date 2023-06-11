@@ -1,14 +1,33 @@
+const validator = require('validator');
 const USER = require('../models/user');
 const Encryption = require('../lib/encryption');
+const LINK = require('../models/links');
+const QR = require('../models/qr');
+
+module.exports.isAuth = async function(req, res){
+    try {
+        return res.status(200).json({
+            success : true,
+            message : 'You are Authorized'
+        })
+    } catch(error){
+        return res.status(200).json({
+            success : false,
+            message : 'You are UnAuthorized'
+        })
+    }
+}
 
 module.exports.signUp = async function(req, res){
     try {
+        let SignUpForm = req.body;
+        let validationResult = validateSignUp(SignUpForm);
+        if(!(await validationResult).success){
+            throw new Error('Sign up form validation failed');
+        }
         let user = await USER.findOne({email : req.body.email});
         if(user) {
-            console.log('User Already Exist');
-            return res.status(200).json({
-                message : 'User Already Exist'
-            });
+            throw new Error('Email Already Exist');
         } else if(!user){
             let user = {
                 username : req.body.username,
@@ -26,62 +45,79 @@ module.exports.signUp = async function(req, res){
                 console.log('Sign up completed');
             }
             return res.status(200).json({
+                success : true,
                 message : 'user signed up successfully',
                 data : newUser
             })
         }
     } catch (error) {
-        console.log('Error in Sign-Up : ', error);
-        return;
+        return res.status(200).json({
+            success : false,
+            message : error.message
+        })
     }
 };
 
-module.exports.signIn = function(req, res){
-    return res.status(200).json({
-        message : 'sign-in succesfull',
-        data : req.user
-    })
+module.exports.signIn = async function(req, res){
+    try {
+        let data = {
+            username : req.user.username,
+            email : req.user.email
+        }
+        return res.status(200).json({
+            success : true,
+            message : 'sign-in succesfull',
+            data : data
+        })
+    } catch (error) {
+        return res.status(200).json({
+            success : false,
+            message : error.message
+        })
+    }
 };
 
-module.exports.loginFail = function(req, res){
-    return res.status(401).json({
+module.exports.loginFail = async function(req, res){
+    return res.status(200).json({
+        success : false,
         message : 'Login failed',
         data : null
     });
 };
 
-module.exports.unauthorized = function(req, res){
-    return res.status(401).json({
+module.exports.unauthorized = async function(req, res){
+    return res.status(200).json({
+        success : false,
         message : 'You are Unauthorized',
         data : null
     });
 };
 
-module.exports.signOut = function(req, res){
-    console.log(req.user.id);
-    console.log(`${req.user.email} signed out!`);
-    req.logout(function(err){
-        if(err){
-            console.log(err);
+module.exports.signOut = async function(req, res){
+    try {
+        await req.logout(function(err){
+            if(err){
+                throw new Error('Error in logging out');
+            }
             return res.status(200).json({
-                message : 'failure'
-            })
-        }
-        return res.status(200).json({
-            message : 'Logged out',
-            data : req.user
+                success : true,
+                message : 'Logged out',
+                data : req.user
+            });
         });
-    });
+    } catch (error) {
+        return res.status(200).json({
+            success : false,
+            message : error.message
+        })
+    }
 };
 
 module.exports.getAccountDetailsOfCurrentUser = async function(req, res){
     try {
         let user = await USER.findById(req.user.id);
         if(!user) {
-            return res.status(401).json({
-                message : 'Unauthorized',
-                data : null
-            });
+            throw new Error('Unauthorized Login')
         }
         let newUser = {
             id : user.id,
@@ -95,8 +131,11 @@ module.exports.getAccountDetailsOfCurrentUser = async function(req, res){
             data : newUser
         });
     } catch (error) {
-        console.log('*****error in getAccountDetailsOfCurrentUsers', error);
-        return;
+        return res.status(401).json({
+            success : false,
+            message : 'Unauthorized',
+            data : null
+        });
     }
 };
 
@@ -114,3 +153,28 @@ module.exports.deleteProfileOfCurrentUser = async function(req, res){
         data : use
     });
 };
+
+async function validateSignUp(payload) {
+    let errors = {};
+    let isFormValid = true;
+
+    if(!payload || typeof payload.username !== 'string' || payload.username.trim().length === 0) {
+        isFormValid = false;
+        errors.title = 'Username Empty or typeof Username is not String';
+    }
+
+    if(!payload || typeof payload.password !== 'string' || payload.password.trim().length === 0) {
+        isFormValid = false;
+        errors.title = 'password Empty or typeof password is not String';
+    }
+
+    if(!payload || validator.isEmail(payload.email) == false || validator.isEmpty(payload.email)){
+        isFormValid = false;
+        errors.title = 'email Empty or it is not a email';
+    }
+    
+    return {
+        success : isFormValid,
+        errors
+    }
+}
