@@ -2,42 +2,20 @@ import { useEffect,useState } from "react";
 import axios from 'axios'
 import EditDeleteButton from "./EditDeleteButton";
 import ViewDetailsButton from "./ViewDetailsButton";
-const data = [
-  {
-    id: 0,
-    title: "Describing the UI React",
-    baseURL: "https://react.dev/learn/describing-the-ui",
-    shortURL: "https://bit.ly/3MMW5UE",
-    qr: "https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Freact.dev%2F&chs=180x180&choe=UTF-8&chld=L|2",
-  },
-  {
-    id: 1,
-    title: "React",
-    baseURL: "https://react.dev/learn",
-    shortURL: "https://bit.ly/3MMW5UE",
-    qr: "https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Freact.dev%2F&chs=180x180&choe=UTF-8&chld=L|2",
-  },
-  {
-    id: 2,
-    title: "JSX",
-    baseURL: "https://react.dev",
-    shortURL: "https://bit.ly/3MMW5UE",
-    qr: "https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Freact.dev%2F&chs=180x180&choe=UTF-8&chld=L|2",
-  },
-];
+
 
 const QrList = () => {
-  const [dat,setDat]=useState();
+  const [data,setData]=useState([]);
   const getData=async ()=>{
-    const res = await axios.get("/links");
+    const res = await axios.get("/qr");
     console.log(res);
-    setDat(res.data);
-    console.log(dat);
+    setData(res.data.data);
   }
 
   useEffect(() => {
     getData();
   }, []);
+
   const link = data.map((l) => {
     return (
       <div className="mx-2 border-b-2">
@@ -48,7 +26,7 @@ const QrList = () => {
             </span>
 
             <div className="flex">
-              <img src={l.qr} alt="QR" className=" my-1 mx-4 w-24 h-24"></img>
+              <img src={l.key} alt="QR" className=" my-1 mx-4 w-24 h-24"></img>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -80,12 +58,12 @@ const QrList = () => {
                   <path d="M19 15l-6 6-1.42-1.42L15.17 16H4V4h2v10h9.17l-3.59-3.58L13 9l6 6z"></path>
                 </svg>
 
-                <a
+                {/* <a
                   href={l.shortURL}
                   className="hover:text-blue-700 text-xl font-semibold mr-8"
                 >
                   {l.shortURL}
-                </a>
+                </a> */}
 
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
