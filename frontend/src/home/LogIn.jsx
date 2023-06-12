@@ -3,7 +3,7 @@ import { Input, Button } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 
 const LogIn = () => {
   const { setAuth } = useAuth();
