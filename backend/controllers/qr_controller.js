@@ -33,7 +33,7 @@ module.exports.getAllQrofUser = async function(req, res){
 module.exports.createQr = async function(req, res){
     try {
         let createQrForm = req.body;
-        let validationResult = this.validateOne(createQrForm);
+        let validationResult = validateOne(createQrForm);
         if(!(await validationResult).success){
             throw new Error('Create Qr Form validation failed');
         }
