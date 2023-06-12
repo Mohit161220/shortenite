@@ -30,6 +30,38 @@ module.exports.getAllQrofUser = async function(req, res){
     }
 };
 
+module.exports.getQRDetailsById = async function(req, res){
+    try {
+        let user = await USER.findById(req.user._id);
+        let qr = await QR.findById(req.params.id);
+        if(user.id !== qr.user.valueOf()){
+            throw new Error('Unauthorized Access to get a QR Details');
+        }
+        qr = await QR.findById(req.params.id).populate({
+            path : 'link',
+            Model : 'Link',
+            select : 'key url title hitCount'
+        });
+        let returnObj = {
+            id : qr._id,
+            key : qr.key,
+            url : qr.url,
+            title : qr.title,
+            qrcode : qr.link,
+            hitCount : qr.hitCount
+        }
+        return res.status(200).json({
+            success : true,
+            data : returnObj
+        })
+    } catch(error) {
+        return res.status(200).json({
+            success : false,
+            message : error.message
+        })
+    }
+}
+
 module.exports.createQr = async function(req, res){
     try {
         let createQrForm = req.body;
