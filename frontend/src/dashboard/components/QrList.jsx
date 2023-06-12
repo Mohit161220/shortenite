@@ -1,3 +1,5 @@
+import { useEffect,useState } from "react";
+import axios from 'axios'
 import EditDeleteButton from "./EditDeleteButton";
 import ViewDetailsButton from "./ViewDetailsButton";
 const data = [
@@ -25,6 +27,17 @@ const data = [
 ];
 
 const QrList = () => {
+  const [dat,setDat]=useState();
+  const getData=async ()=>{
+    const res = await axios.get("/links");
+    console.log(res);
+    setDat(res.data);
+    console.log(dat);
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
   const link = data.map((l) => {
     return (
       <div className="mx-2 border-b-2">
