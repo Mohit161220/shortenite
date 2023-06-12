@@ -5,6 +5,7 @@ const qrController = require('../controllers/qr_controller');
 
 router.get('/', passport.checkAuthentication, qrController.getAllQrofUser);
 router.post('/create-qr', passport.checkAuthentication, qrController.createQr);
+router.patch('/edit/:id', passport.checkAuthentication, qrController.edit);
 router.delete('/delete/:id', passport.checkAuthentication, qrController.delete);
 
 module.exports = router;
