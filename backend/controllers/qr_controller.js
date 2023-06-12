@@ -82,6 +82,34 @@ module.exports.createQr = async function(req, res){
     }
 };
 
+module.exports.edit = async function(req, res){
+    try {
+        let editFormBody = req.body;
+        let validationResult = await validateOne(editFormBody);
+        if(!validationResult.success){
+            throw new Error('Edit form validation failed');
+        }
+        let qr = QR.findById(req.params.id);
+        if(!qr) {
+            throw new Error('QR not found!');
+        }
+        let ans = await QR.findByIdAndUpdate(req.params.id, {
+            title : req.body.title,
+            url : req.body.url
+        });
+        return res.status(200).json({
+            success : true,
+            data : ans
+        })
+    } catch(error){
+        console.log(error);
+        return res.status(400).json({
+            success : false,
+            message: error.message
+        });
+    }
+}
+
 module.exports.delete = async function(req, res){
     try {
         let userID = req.user._id;
