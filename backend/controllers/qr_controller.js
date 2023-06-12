@@ -1,8 +1,118 @@
+const validator = require('validator');
 const QRCode = require('qrcode');
 const QR = require('../models/qr')
 const LINK = require('../models/links');
 const USER = require('../models/user');
 const generateKey = require('../lib/keyGenerater');
+
+module.exports.getAllQrofUser = async function(req, res){
+    try {
+        let user = await USER.findById(req.user._id).populate({
+            path : 'qrcode',
+            Model : 'QRCode',
+            select : 'key url title',
+            populate : {
+                path : 'link', 
+                Model : 'Link',
+                select : 'key hitcount'
+            }
+        });
+        return res.status(200).json({
+            success : true,
+            data : user.qrcode
+        });
+    } catch (error) {
+        return res.status(200).json({
+            success : false,
+            message : error.message,
+            data : null
+        });
+    }
+};
+
+module.exports.createQr = async function(req, res){
+    try {
+        let createQrForm = req.body;
+        let validationResult = this.validateOne(createQrForm);
+        if(!(await validationResult).success){
+            throw new Error('Create Qr Form validation failed');
+        }
+        let title = req.body.title;
+        let destinationUrl = req.body.url;
+        let qr = await QRCode.toDataURL(destinationUrl);
+        
+        let ans = await QR.create({
+            key : qr,
+            url : destinationUrl,
+            title : title,
+            user : req.user.id
+        });
+
+        let shortKeyForLink = await generateKey();
+
+        let linkForThisQr = await LINK.create({
+            key : shortKeyForLink,
+            url : destinationUrl,
+            title : title,
+            user : req.user.id,
+            qrcode : ans._id
+        })
+
+        const newQr = await QR.findById(ans._id);
+        newQr.link = linkForThisQr._id;
+        newQr.save();
+
+        const newUser = await USER.findById(req.user.id);
+        newUser.qrcode.push(ans);
+        newUser.links.push(linkForThisQr);
+        newUser.save();
+
+        let data = await QR.findById(ans._id);
+
+        return res.status(200).json({
+            success : true,
+            message : 'qr created',
+            data : data
+        });
+    } catch(error){
+        return res.status(200).json({
+            success : false,
+            message : error.message
+        });
+    }
+};
+
+module.exports.delete = async function(req, res){
+    try {
+        let userID = req.user._id;
+        let newQR = await QR.findById(req.params.id);
+        let linkId = newQR.link.valueOf();
+        if(userID.valueOf() !== newQR.user._id.valueOf()){
+            throw new Error('Unauthorized Access to delete a QR');
+        }
+        let updatedUser = await USER.findByIdAndUpdate(req.user._id, {
+            $pull : {
+                qrcode : req.params.id,
+                links : linkId
+            }
+        });
+        await LINK.findByIdAndDelete(linkId);
+        let qr = await QR.deleteOne({
+            _id : req.params.id
+        });
+        return res.status(200).json({
+            success : true,
+            message : 'QR Deleted',
+            user : updatedUser,
+            qr : qr
+        })
+    } catch (error) {
+        return res.status(200).json({
+            success : false,
+            message : error.message
+        })
+    }
+}
 
 async function generateRandomString(destinationUrl){
     let salt = await bcrypt.genSalt(saltRounds);
@@ -10,64 +120,23 @@ async function generateRandomString(destinationUrl){
     return shortUrl;
 }
 
-//                      TODO
-module.exports.getAllQrofUser = function(req, res){
-    // get all the QRCODE of user who is logged in..
-    return res.status(200).json({
-        message : 'Gotcha... QRCODE...'
-    });
-};
+async function validateOne(payload) {
+    let errors = {};
+    let isFormValid = true;
 
-/*
-** ----   Everytime user Create QR CODE, LINK will be created automatically, with system Gen KEY
-*/
+    if(!payload || typeof payload.title !== 'string' || payload.title.trim().length === 0) {
+        console.log(1);
+        isFormValid = false;
+        errors.title = 'Title Empty or typeof title is not String';
+    }
 
-module.exports.createQr = async function(req, res){
-    let title = req.body.title;
-    let destinationUrl = req.body.url;
-    let qr = await QRCode.toDataURL(destinationUrl);
-     
-    let ans = await QR.create({
-        key : qr,
-        url : destinationUrl,
-        title : title,
-        user : req.user.id
-    });
+    if(!payload || validator.isURL(payload.url, { require_tld : false }) == false || validator.isEmpty(payload.url)){
+        isFormValid = false;
+        errors.url = 'URL Empty or it is not a url';
+    }
 
-    let shortKeyForLink = await generateKey();
-    // also need to check whether this link exists in database or not.
-    let linkForThisQr = await LINK.create({
-        key : shortKeyForLink,
-        url : destinationUrl,
-        title : title,
-        user : req.user.id,
-        qrcode : ans._id
-    })
-
-    const newQr = await QR.findById(ans._id);
-    newQr.link = linkForThisQr._id;
-    newQr.save();
-
-    const newUser = await USER.findById(req.user.id);
-    newUser.qrcode.push(ans);
-    newUser.links.push(linkForThisQr);
-    newUser.save();
-
-    let data = await QR.findById(ans._id);
-
-    return res.status(200).json({
-        message : 'qr created',
-        data : data
-    });
-};
-
-// NEED SAME WORK AS LINK DELETE
-module.exports.delete = async function(req, res){
-    let qr = await QR.deleteOne({
-        _id : req.params.id
-    })
-    return res.status(200).json({
-        message : 'Qr Deleted',
-        data : qr
-    })
+    return {
+        success : isFormValid,
+        errors
+    }
 }
