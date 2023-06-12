@@ -17,13 +17,45 @@ module.exports.getAllLinksofUser = async function(req, res){
             Model : 'QRCode',
             select : 'key url title'
         }
-    })
+    });
     return res.status(200).json({
         success : true,
         message : 'Gotcha',
         data : user.links
     });
 };
+
+module.exports.getLinkDetailsById = async function(req, res){
+    try {
+        let user = await USER.findById(req.user._id);
+        let links = await LINK.findById(req.params.id);
+        if(user.id !== links.user.valueOf()) {
+            throw new Error('Unauthorized Access to get a Link Details');
+        }
+        links = await LINK.findById(req.params.id).populate({
+            path : 'qrcode',
+            Model : 'QRCode',
+            select : 'key url title'
+        })
+        let returnObj = {
+            id : links._id,
+            key : links.key,
+            url : links.url,
+            title : links.title,
+            hitCount : links.hitCount,
+            qrcode : links.qrcode
+        }
+        return res.status(200).json({
+            success : true,
+            data : returnObj
+        });
+    } catch(error){
+        return res.status(200).json({
+            success : false,
+            message : error.message
+        })
+    }
+}
 
 module.exports.handleRedirect = async function(req, res){
     try {
