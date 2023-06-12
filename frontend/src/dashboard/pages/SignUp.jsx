@@ -30,9 +30,10 @@ const SignUp = () => {
 
   return (
     <div className="flex flex-col place-content-center place-items-center">
-      <nav className="flex place-content-start place-items-center w-2/3 h-20 border-b-2">
-        <Link to="/" className="ml-20">
-          <div className="text-3xl font-black  text-center text-indigo-600">
+      <nav className="flex place-content-center place-items-center w-full h-16 border-b-2
+                      sm:place-content-start sm:h-20 sm:w-2/3">
+        <Link to="/" className="mx-auto sm:ml-20 ">
+          <div className="text-2xl sm:text-3xl font-black  text-center text-indigo-600">
             SHORTENITE
           </div>
         </Link>
@@ -40,12 +41,12 @@ const SignUp = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col  w-1/3 m-16 rounded-lg shadow-lg"
+        className="flex flex-col m-12 sm:w-2/3 sm:m-12  md:w-2/5  rounded-lg shadow-lg"
       >
-        <span className="text-3xl font-semibold text-center">Sign Up</span>
+        <span className="text-2xl sm:text-3xl m-4  font-semibold text-center">Sign Up</span>
 
-        <div className="mx-12 mt-12">
-          <label className="text-lg font-normal" htmlFor="name">
+        <div className="mx-10 sm:mx-12 mt-6  sm:mt-8">
+          <label className="text-md sm:text-lg font-normal" htmlFor="name">
             Username
           </label>
           <Input
@@ -56,8 +57,8 @@ const SignUp = () => {
           />
         </div>
 
-        <div className="mx-12 mt-4">
-          <label className="text-lg font-normal" htmlFor="name">
+        <div className="mx-10 sm:mx-12 mt-6  sm:mt-8">
+          <label className="text-md sm:text-lg font-normal" htmlFor="name">
             Email address
           </label>
           <Input
@@ -68,8 +69,8 @@ const SignUp = () => {
           />
         </div>
 
-        <div className="mx-12 mt-4">
-          <label className="text-lg font-normal" htmlFor="title">
+        <div className="mx-10 sm:mx-12 mt-6  sm:mt-8">
+          <label className="text-md sm:text-lg font-normal" htmlFor="title">
             Password
           </label>
           <Input
@@ -80,13 +81,13 @@ const SignUp = () => {
           />
         </div>
 
-        <Button type="submit" className="mt-14 mx-12" colorScheme="blue">
+        <Button type="submit" className="mx-auto mt-6 text-md sm:text-lg sm:mx-12 sm:mt-8" colorScheme="blue">
           Sign Up
         </Button>
 
-        <div className="flex mt-4 mr-14 mb-12 text-base font-medium  justify-end">
-          <span className="font-normal">Already have an account?</span>
-          <Link to="/log_in" className="ml-2">
+        <div className="flex mt-4 mr-14 mb-12 text-base font-medium justify-center sm:justify-end">
+          <span className="text-xs sm:text-sm font-normal">Already have an account?</span>
+          <Link to="/log_in" className="ml-2 text-xs sm:text-sm">
             <div className=" text-blue-700 underline">Log In</div>
           </Link>
         </div>

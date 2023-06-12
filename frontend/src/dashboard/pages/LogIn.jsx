@@ -27,9 +27,10 @@ const LogIn = () => {
 
   return (
     <div className="flex flex-col place-content-center place-items-center">
-      <nav className="flex place-content-start place-items-center w-2/3 h-20 border-b-2">
-        <Link to="/" className="ml-20">
-          <div className="text-3xl font-black  text-center text-indigo-600">
+      <nav className="flex place-content-center place-items-center w-full h-16 border-b-2
+                      sm:place-content-start sm:h-20 sm:w-2/3">
+        <Link to="/" className="mx-auto sm:ml-20 ">
+          <div className="text-2xl sm:text-3xl font-black  text-center text-indigo-600">
             SHORTENITE
           </div>
         </Link>
@@ -37,13 +38,13 @@ const LogIn = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col  w-1/3 m-20 rounded-lg shadow-lg"
+        className="flex flex-col m-16 sm:w-2/3 sm:m-16  md:w-2/5  rounded-lg shadow-lg"
       >
-        <span className="text-3xl font-semibold text-center">Log In</span>
+        <span className="text-2xl sm:text-3xl m-4  font-semibold text-center">Log In</span>
 
-        <div className="mx-12 mt-16">
-          <label className="text-lg font-normal" htmlFor="name">
-            Email address
+        <div className="mx-10 sm:mx-12 mt-8  sm:mt-12">
+          <label className="text-md sm:text-lg font-normal" htmlFor="name">
+            Email Address
           </label>
           <Input
             onChange={(e) => setEmail(e.target.value)}
@@ -53,8 +54,8 @@ const LogIn = () => {
           />
         </div>
 
-        <div className="mx-12 mt-4">
-          <label className="text-lg font-normal" htmlFor="title">
+        <div className="mx-10 sm:mx-12 mt-8  sm:mt-12">
+          <label className="text-md sm:text-lg font-normal" htmlFor="title">
             Password
           </label>
           <Input
@@ -65,19 +66,19 @@ const LogIn = () => {
           />
         </div>
 
-        <Link to="/forgot_password" className="mx-14 mt-2">
-          <div className="text-sm font-medium text-end text-blue-700 underline">
+        <Link to="/forgot_password" className="mx-auto sm:mx-14 mt-4">
+          <div className="text-xs sm:text-sm font-medium text-end text-blue-700 underline">
             Forgot your password?
           </div>
         </Link>
 
-        <Button type="submit" className="mt-10 mx-12" colorScheme="blue">
+        <Button type="submit" className="mx-auto mt-8 text-md sm:text-lg sm:mx-12 sm:mt-12" colorScheme="blue">
           Log In
         </Button>
 
-        <div className="flex mt-4 mr-14 mb-12 text-base font-medium  justify-end">
-          <span className="font-normal">Didn't have a account?</span>
-          <Link to="/sign_up" className="ml-2">
+        <div className="flex mx-auto sm:mx-14 mt-4 mb-4 sm:mb-8 font-medium  justify-center sm:justify-end">
+          <span className="text-xs sm:text-sm font-normal">Didn't have a account?</span>
+          <Link to="/sign_up" className="ml-2 text-xs sm:text-sm">
             <div className=" text-blue-700 underline">Sign up</div>
           </Link>
         </div>
