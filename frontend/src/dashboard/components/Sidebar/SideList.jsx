@@ -9,7 +9,7 @@ const SideList = () => {
   let isScreenMid = useMediaQuery("(min-width : 1024px)");
 
   return (
-    <nav className="lg:w-full lg:px-2">
+    <nav className="lg:w-full lg:px-2 mt-16">
       <NavLink
         exact 
         to="/dashboard/links"

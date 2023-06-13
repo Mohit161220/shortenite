@@ -31,9 +31,9 @@ const CreateNewQr = () => {
         onSubmit={handleSubmit}
         className="flex flex-col justify-evenly w-3/5 h-5/6 rounded-lg shadow-lg"
       >
-        <span className="text-3xl font-bold mx-8">Create New</span>
+        <span className="text-xl sm:text-2xl lg:text-3xl font-bold mx-8">Create New</span>
 
-        <div className="mx-8">
+        <div className="mx-8 mt-5">
           <label className="text-lg font-semibold" for="name">
             Destination URL
           </label>
