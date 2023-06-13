@@ -1,15 +1,29 @@
 import React from "react";
 import NavDropDown from "./NavDropDown";
+import { Link } from "react-router-dom"; 
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 const Navbar = () => {
-  return (
-    <div className="h-20 border-2 border-t-0 rounded-lg grid grid-cols-12 content-center sticky top-0 bg-white">
-      <div className="col-span-6">
-        <form className="max-w-sm px-4 pt-1">
+
+  let isScreenMid = useMediaQuery("(max-width : 768px)");
+
+  return ( 
+    <div className="h-15 sm:h-20 border-2 border-t-0 rounded-lg grid grid-cols-12 content-center sticky top-0 bg-white">
+      {isScreenMid &&
+        <div className="col-span-4">
+          <Link to="/">
+              <div className="text-sm sm:text-xl font-black text-center mt-4 text-indigo-600 hover:text-indigo-400">
+                SHORTENITE
+              </div>
+            </Link> 
+        </div>
+      }
+      <div className="col-span-6 ">
+        <form className="max-w-sm px-4 pt-3">
           <div className="relative">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute top-0 bottom-0 w-6 h-6 my-auto text-gray-400 left-3"
+              className="absolute top-0 bottom-0 w-6 h-4 sm:h-6 my-auto text-gray-400 left-3"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -24,7 +38,7 @@ const Navbar = () => {
             <input
               type="text"
               placeholder="Search"
-              className="w-full py-2 pl-12 pr-4 text-gray-500 border rounded-3xl outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
+              className="w-full h-8 sm:h-10 py-2 pl-12 pr-4 text-gray-500 border rounded-3xl outline-none bg-gray-50 focus:bg-white focus:border-indigo-600"
             />
           </div>
         </form>
