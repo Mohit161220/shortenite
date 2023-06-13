@@ -15,13 +15,13 @@ const SignUp = () => {
     console.log(email);
     console.log(password);
     try {
-      const res = await axios.post("/users/sign-up", {
-        email,
-        username,
-        password,
+      const res = await axios.post("users/sign-up", {
+        email:email,
+        username:username,
+        password:password,
       });
-      console.log(res.data.message);
-      if (res.data.sucess) navigate("/log_in");
+      console.log(res);
+      if (res.data.success) navigate("/log_in");
     } catch (error) {
       console.log(error)
     }

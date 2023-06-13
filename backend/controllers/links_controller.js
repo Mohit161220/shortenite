@@ -117,7 +117,7 @@ module.exports.createLink = async function(req, res){
 module.exports.edit = async function(req, res){
     try {
         let editFormBody = req.body;
-        let validationResult = validateOne(editFormBody);
+        let validationResult =await validateOne(editFormBody);
         if(!validationResult.success){
             throw new Error('Edit form validation failed');
         }
@@ -200,6 +200,7 @@ async function validateOne(payload) {
     }
 
     if(!payload || validator.isURL(payload.url, { require_tld : false }) == false || validator.isEmpty(payload.url)){
+        console.log(2)
         isFormValid = false;
         errors.url = 'URL Empty or it is not a url';
     }

@@ -1,10 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 const EditDeleteButton = (props) => {
+  const handleDelete=async()=>{
+    try {
+      console.log("deleting",props.id)
+      const res=await axios.delete(`/${props.type}/delete/${props.id}`)
+      console.log(res)
+      if(res.data.success)
+      window.location.reload(false);
+    } catch (error) {
+      
+    }
+  }
   return (
     <div className="flex my-3 mx-10">
-      <Link to={`/dashboard/links/edit/${props.id}`}>
+      <Link to={`/dashboard/${props.type}/edit/${props.id}`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -20,7 +32,7 @@ const EditDeleteButton = (props) => {
           />
         </svg>
       </Link>
-      <Link>
+      <Link onClick={handleDelete}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

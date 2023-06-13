@@ -83,9 +83,9 @@ const QrList = () => {
             </div>
           </div>
           <div className="">
-            <EditDeleteButton/>
+            <EditDeleteButton type="qr" id={l.id} key={l.id}/>
               <div>
-               <ViewDetailsButton type="qrs" id={l.id} />
+               <ViewDetailsButton type="qr" id={l.id} key={l.id}/>
               </div>
             </div>
           </div>
