@@ -1,9 +1,22 @@
 import React from "react";
 import { Menu, MenuButton, MenuList, MenuItem, Avatar } from "@chakra-ui/react";
+import axios from "axios";
+import useAuth from "../../../hooks/useAuth";
 
 const NavDropDown = () => {
+  const {setAuth}=useAuth()
+  const signOut=async()=>{
+    try {
+      const res=await axios.get('/users/sign-out')
+      if(res.data.success){
+        setAuth(false)
+      }
+    } catch (error) {
+      
+    }
+  }
   return (
-    <div className="col-span-6 justify-self-end px-2 cursor-pointer">
+    <div className="col-span-6 justify-self-end px-2 cursor-pointer bg-white" >
       <Menu>
         <MenuButton className="hover:bg-gray-100 hover:rounded p-1">
           <div className="flex items-center space-x-4-end mr-4 ">
@@ -16,12 +29,12 @@ const NavDropDown = () => {
           </div>
         </MenuButton>
         <MenuList>
-          <MenuItem>
+          <MenuItem onClick={signOut}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-6 h-6 mr-2 text-red-600"
+              className="w-6 h-6 mr-2 text-red-600 z-40"
             >
               <path
                 fillRule="evenodd"
