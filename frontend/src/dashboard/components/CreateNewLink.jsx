@@ -34,8 +34,8 @@ const CreateNewLink = () => {
         onSubmit={handleSubmit}
         className="flex flex-col justify-evenly w-3/5 h-5/6 rounded-lg shadow-lg"
       >
-        <span className="text-3xl font-bold mx-8">Create New</span>
-        <div className="mx-8">
+        <span className="text-xl sm:text-2xl lg:text-3xl font-bold mx-8">Create New</span>
+        <div className="mx-8 mt-4">
           <label className="text-lg font-semibold" htmlFor="name">
             Destination URL
           </label>
@@ -60,7 +60,7 @@ const CreateNewLink = () => {
         </div>
 
         <div className="mx-8">
-          <label className="text-lg font-semibold" htmlFor="title">
+          <label className="text-base sm:text-lg font-semibold" htmlFor="title">
             Custom back-half (optional)
           </label>
           <Input
@@ -72,7 +72,7 @@ const CreateNewLink = () => {
         </div>
 
         <div className="mx-8">
-          <label className="text-lg font-semibold mr-5" htmlFor="title">
+          <label className="text-base sm:text-lg font-semibold mr-5" htmlFor="title">
             QR Code (optional)
           </label>
           <Switch id="email-alerts" size="md" />
