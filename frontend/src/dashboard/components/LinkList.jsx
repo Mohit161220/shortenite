@@ -7,24 +7,24 @@ import axios from "axios";
 const LinkList = () => {
   const { setAuth } = useAuth();
   const [data, setData] = useState([]);
-  const getData = async () => {
-    try {
-      const res = await axios.get("/links");
-      console.log(res);
-      setData(res.data.data);
-    } catch (error) {
-      console.log(error);
-      setAuth(false);
-    }
-  };
 
   useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await axios.get("/links");
+        console.log(res);
+        if (!(res.data.data === data)) setData(res.data.data);
+      } catch (error) {
+        console.log(error);
+        setAuth(false);
+      }
+    };
     getData();
-  }, []);
+  });
 
   return (
-    <div className="mt-0">
-      {data.map((l,key) => {
+    <div className="mt-0 overflow-auto">
+      {data.map((l, key) => {
         return (
           <div key={key} className=" mt-2 mx-2 border-b-2">
             <div className="flex ">
@@ -78,7 +78,7 @@ const LinkList = () => {
             </a> */}
               </div>
               <div className="mb-6">
-                <EditDeleteButton type="links" key={l._id} id={l._id}/>
+                <EditDeleteButton type="links" key={l._id} id={l._id} />
                 <div>
                   <ViewDetailsButton type="links" key={l._id} id={l._id} />
                 </div>

@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 
 const Links = () => {
   return (
-    <div className=" ">
+    <div className="">
 
-      <div className="sticky top-16 grid grid-col-12 w-full h-24 shadow-md bg-white">
+      <div className="sticky top-24 grid grid-col-12 w-full h-24 shadow-md bg-white ">
 
         <span className="col-span-1 text-4xl my-6 pl-8 font-semibold ">Links</span>
         
