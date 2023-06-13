@@ -34,6 +34,7 @@ function App() {
             path="links/create_new_link"
             element={<CreateNewLink />}
           />
+          <Route exact path="links/edit/:id" element={<EditLink/>}/> 
           <Route exact path="links/:id" element={<Details />} />
           <Route exact path="qrs" element={<Qr />} />
           <Route exact path="qrs/create_new_qr" element={<CreateNewQr />} />
