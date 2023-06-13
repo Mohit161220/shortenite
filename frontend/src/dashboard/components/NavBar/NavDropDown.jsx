@@ -1,9 +1,11 @@
 import React from "react";
 import { Menu, MenuButton, MenuList, MenuItem, Avatar } from "@chakra-ui/react";
+import { useMediaQuery } from "@uidotdev/usehooks";
 import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
 
 const NavDropDown = () => {
+  let isScreenMid = useMediaQuery("(min-width : 768px)");
   const {setAuth}=useAuth()
   const signOut=async()=>{
     try {
@@ -16,19 +18,24 @@ const NavDropDown = () => {
     }
   }
   return (
-    <div className="col-span-6 justify-self-end px-2 cursor-pointer bg-white" >
+    <div className="col-span-2 md:col-span-6 justify-self-end px-2 cursor-pointer">
       <Menu>
         <MenuButton className="hover:bg-gray-100 hover:rounded p-1">
           <div className="flex items-center space-x-4-end mr-4 ">
             <Avatar
               size="md"
-              name="Segun Adebayo"
+              name="Mohit Singh Rana"
               src="https://bit.ly/broken-link"
             />
-            <div className="text-xl pl-3">Mohit Singh Rana</div>
+           {isScreenMid && <div className="text-sm sm:text-xl pl-3">Mohit Singh Rana</div> }
           </div>
         </MenuButton>
         <MenuList>
+            {!isScreenMid &&
+              <MenuItem>
+                <span>Mohit Singh Rana</span>
+              </MenuItem>
+            }
           <MenuItem onClick={signOut}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
