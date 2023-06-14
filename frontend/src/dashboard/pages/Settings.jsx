@@ -23,10 +23,14 @@ const Settings = () => {
 
   const updateUserName = async (e) => {
     e.preventDefault()
+    console.log(username)
     try {
       const res = await axios.post("/users/update-username", {
         username: username,
       });
+      console.log(res)
+      if(res.data.success)
+      window.location.reload(false);
       if(!res.data.success) setDisplay1(true)
     } catch (error) {
       setDisplay1(true)
@@ -35,7 +39,7 @@ const Settings = () => {
 
   const changePassword = async (e) => {
     e.preventDefault()
-    console.log(username)
+    console.log(password)
     try {
       const res = await axios.post("/users/update-password", {
         OldPassword:oldPassword,
@@ -43,6 +47,8 @@ const Settings = () => {
         confirmPassword:confirmPassword
       });
       if(!res.data.success) setDisplay2(true)
+      if(res.data.success)
+      window.location.reload(false);
     } catch (error) {
       setDisplay2(true)
     }
@@ -100,7 +106,7 @@ const Settings = () => {
             <AlertTitle>UserName Already exists</AlertTitle>
           </Alert>
         </div>
-        <form  className="mt-6 pr-4">
+        <form onSubmit={updateUserName} className="mt-6 pr-4">
           <Input
             onChange={(e) => setUsername(e.target.value)}
             variant="outline"
@@ -110,7 +116,7 @@ const Settings = () => {
             colorScheme="blue"
             variant="outline"
             className="mt-6"
-            onClick={updateUserName}
+            type="submit"
           >
             Update UserName
           </Button>
