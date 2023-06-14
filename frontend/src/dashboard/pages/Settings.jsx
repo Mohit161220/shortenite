@@ -6,7 +6,6 @@ import {
   Alert,
   AlertIcon,
   AlertTitle,
-  AlertDescription,
 } from "@chakra-ui/react";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import axios from "axios";
@@ -68,13 +67,13 @@ const Settings = () => {
   }, []);
 
   useEffect(() => {
-    if (password === confirmPassword && password!=="" && confirmPassword!="") setSame(true);
+    if (password === confirmPassword && password!=="" && confirmPassword!=="") setSame(true);
     else setSame(false);
   }, [password, confirmPassword]);
 
   return (
     <div className=" border-2 rounded-lg lg:grid lg:grid-cols-6 mt-4 w-4/5 mx-auto lg:w-full">
-      <div className="lg:col-span-2 lg:justify-self-center mb-2 ml-5">
+      <div className="lg:col-span-2 lg:justify-self-center mb-2 ml-5 mt-4">
         <div className="mt-6">
           {isScreenMid ? (
             <Avatar
@@ -92,9 +91,6 @@ const Settings = () => {
             />
           )}
         </div>
-        <Button colorScheme="blue" variant="outline" className=" my-4">
-          Change Profile Picture
-        </Button>
       </div>
       <div className="lg:col-span-4 ml-4">
         <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mt-6 ">
@@ -124,7 +120,7 @@ const Settings = () => {
         <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl mt-8">
           Security
         </div>
-        <div className={display1 ? "mt-4 mr-2" : "hidden mt-4"}>
+        <div className={display2 ? "mt-4 mr-2" : "hidden mt-4"}>
           <Alert status="error" className="rounded-lg">
             <AlertIcon />
             <AlertTitle>Incorrect Password</AlertTitle>
