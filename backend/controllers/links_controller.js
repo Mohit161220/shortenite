@@ -199,7 +199,8 @@ async function validateOne(payload) {
         errors.title = 'Title Empty or typeof title is not String';
     }
 
-    if(!payload || validator.isURL(payload.url, { require_tld : false }) == false || validator.isEmpty(payload.url)){
+    // validator.isURL(payload.url, { require_tld : false }) == false || 
+    if(!payload || validator.isEmpty(payload.url)){
         console.log(2)
         isFormValid = false;
         errors.url = 'URL Empty or it is not a url';
