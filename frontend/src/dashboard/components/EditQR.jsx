@@ -4,18 +4,17 @@ import { Input, Button } from "@chakra-ui/react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const EditLink = () => {
+const EditQR = () => {
   const [title, setTitle] = useState("");
   const [destinationURL, setDestinationURL] = useState("");
-  const [key, setKey] = useState("");
   const [id, setId] = useState(useParams().id);
   const navigate = useNavigate();
 
-  const [idata, setIdata] = useState({ title: "", url: "", key: "" });
+  const [idata, setIdata] = useState({ title: "", url: "" });
 
-  const getLink = async () => {
+  const getQr = async () => {
     try {
-      const res = await axios.get(`/links/details/${id}`);
+      const res = await axios.get(`/qr/details/${id}`);
       setIdata(res.data.data);
     } catch (error) {}
   };
@@ -25,20 +24,19 @@ const EditLink = () => {
     try {
       if (title === "") setTitle(idata.title);
       if (destinationURL === "") setDestinationURL(idata.url);
-      const res = await axios.patch(`/links/edit/${id}`, {
+      const res = await axios.patch(`/qr/edit/${id}`, {
         title: title,
         url: destinationURL,
-        key: idata.key,
       });
       console.log(res);
-      if (res.data.success) navigate("/dashboard/links");
+      if (res.data.success) navigate("/dashboard/qrs");
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    getLink();
+    getQr();
   });
 
   return (
@@ -78,4 +76,4 @@ const EditLink = () => {
   );
 };
 
-export default EditLink;
+export default EditQR;

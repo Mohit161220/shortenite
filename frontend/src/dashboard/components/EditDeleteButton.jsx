@@ -8,7 +8,6 @@ const EditDeleteButton = (props) => {
       console.log("deleting",props.id)
       const res=await axios.delete(`/${props.type}/delete/${props.id}`)
       console.log(res)
-      if(res.data.data.success)
       window.location.reload(false);
     } catch (error) {
       
