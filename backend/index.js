@@ -35,7 +35,7 @@ app.use(
       maxAge: 1000 * 60 * 60 * 24,
     },
     store: MongoStore.create({
-        mongoUrl: process.env.DATABASE_URL,
+        mongoUrl: 'mongodb://localhost:27017/shortenite',
         autoRemove: "disabled",
       },
       function (error) {

@@ -52,14 +52,18 @@ module.exports.updatePassword = async function(req, res){
             throw new Error('New Password and Confirm Password do not match');
         }
         let user = await USER.findById(req.user._id);
+        console.log(user);
         let hash = Encryption.generateHashedPassword(user.salt, req.body.OldPassword);
         if(hash !== user.password) {
             throw new Error('Old Password is not correct');
         }
+
+
         let salt = await Encryption.generateSalt();
         let hashedPassword = await Encryption.generateHashedPassword(salt, req.body.newPassword);
         await USER.findByIdAndUpdate(req.user._id, {
-            password : hashedPassword
+            password : hashedPassword,
+            salt : salt
         })
         return res.status(200).json({
             success : true,
