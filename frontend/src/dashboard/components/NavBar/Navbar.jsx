@@ -8,7 +8,7 @@ const Navbar = () => {
   let isScreenMid = useMediaQuery("(max-width : 768px)");
 
   return ( 
-    <div className="h-15 sm:h-20 border-2 border-t-0 rounded-lg grid grid-cols-12 content-center sticky top-0 bg-white">
+    <div className="h-15 sm:h-20 border-2 border-t-0 rounded-lg grid grid-cols-12 content-center sticky top-0 bg-white z-20">
       {isScreenMid &&
         <div className="col-span-4">
           <Link to="/">

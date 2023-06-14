@@ -175,11 +175,11 @@ module.exports.getAccountDetailsOfCurrentUser = async function(req, res){
             throw new Error('Unauthorized Login')
         }
         let newUser = {
-            id : user.id,
+            // id : user.id,
             username : user.username,
-            email : user.email,
-            links : user.links,
-            qrcode : user.qrcode
+            // email : user.email,
+            // links : user.links,
+            // qrcode : user.qrcode
         }
         return res.status(200).json({
             success : true,

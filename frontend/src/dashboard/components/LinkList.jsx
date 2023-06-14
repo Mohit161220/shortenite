@@ -20,7 +20,7 @@ const LinkList = () => {
       }
     };
     getData();
-  });
+  },[]);
 
   return (
     <div className="mt-0 overflow-auto">

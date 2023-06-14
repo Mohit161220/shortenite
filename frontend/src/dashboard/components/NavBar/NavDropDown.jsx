@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Menu, MenuButton, MenuList, MenuItem, Avatar } from "@chakra-ui/react";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import axios from "axios";
@@ -6,6 +6,7 @@ import useAuth from "../../../hooks/useAuth";
 
 const NavDropDown = () => {
   let isScreenMid = useMediaQuery("(min-width : 768px)");
+  const [userName,setUserName]=useState("");
   const {setAuth}=useAuth()
   const signOut=async()=>{
     try {
@@ -17,6 +18,20 @@ const NavDropDown = () => {
       
     }
   }
+  const getUser=async()=>{
+    try {
+      const res=await axios.get('/users/me')
+      console.log(res)
+      if(res.data.success){
+        setUserName(res.data.data.username)
+      }
+    } catch (error) {
+      
+    }
+  }
+  useEffect(()=>{
+    getUser()
+  },[])
   return (
     <div className="col-span-2 md:col-span-6 justify-self-end px-2 cursor-pointer">
       <Menu>
@@ -24,16 +39,16 @@ const NavDropDown = () => {
           <div className="flex items-center space-x-4-end mr-4 ">
             <Avatar
               size="md"
-              name="Mohit Singh Rana"
+              name={userName}
               src="https://bit.ly/broken-link"
             />
-           {isScreenMid && <div className="text-sm sm:text-xl pl-3">Mohit Singh Rana</div> }
+           {isScreenMid && <div className="text-sm sm:text-xl pl-3">{userName}</div> }
           </div>
         </MenuButton>
         <MenuList>
             {!isScreenMid &&
               <MenuItem>
-                <span>Mohit Singh Rana</span>
+                <span>{userName}</span>
               </MenuItem>
             }
           <MenuItem onClick={signOut}>
