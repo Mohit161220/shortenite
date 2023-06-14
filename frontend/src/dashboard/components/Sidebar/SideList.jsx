@@ -3,15 +3,17 @@ import { NavLink } from "react-router-dom";
 import { useMediaQuery } from "@uidotdev/usehooks";
 
 const SideList = () => {
-  const activeLink = "bg-blue-100 pt-0  flex items-center w-full mb-4 rounded-lg text-blue-700";
-  const normalLink = "hover:bg-gray-100 rounded-lg pt-0  flex items-center  mb-4";
-  
+  const activeLink =
+    "bg-blue-100 pt-0  flex items-center w-full mb-4 rounded-lg text-blue-700";
+  const normalLink =
+    "hover:bg-gray-100 rounded-lg pt-0  flex items-center  mb-4";
+
   let isScreenMid = useMediaQuery("(min-width : 1024px)");
 
   return (
     <nav className="lg:w-full lg:px-2 mt-16">
       <NavLink
-        exact 
+        exact
         to="/dashboard/links"
         className={({ isActive }) => {
           var linksClass = isActive ? activeLink : normalLink;
@@ -36,8 +38,10 @@ const SideList = () => {
           <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464"></path>
           <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"></path>
         </svg>
-        
-          {isScreenMid && <span className="text-xl font-medium my-2 ">Links</span>}
+
+        {isScreenMid && (
+          <span className="text-xl font-medium my-2 ">Links</span>
+        )}
       </NavLink>
       <NavLink
         to="/dashboard/qrs"
@@ -72,36 +76,9 @@ const SideList = () => {
           <path d="M20 17l0 3"></path>
         </svg>
 
-        {isScreenMid &&  <span className="text-xl font-medium my-2">QR Codes</span>}
-      </NavLink>
-      <NavLink
-        to="/dashboard/link_in_bio"
-        className={({ isActive }) => {
-          return isActive ? activeLink : normalLink;
-        }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="inline-block  mx-2 md:mx-5 my-2"
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          strokeWidth="1"
-          stroke="currentColor"
-          fill="none"
-          stokelinecap="round"
-          stokelinejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M20 6v12a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2z"></path>
-          <path d="M10 16h6"></path>
-          <path d="M13 11m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
-          <path d="M4 8h3"></path>
-          <path d="M4 12h3"></path>
-          <path d="M4 16h3"></path>
-        </svg>
-
-        {isScreenMid && <span className="text-xl font-medium my-2">Link-in-Bio</span>}
+        {isScreenMid && (
+          <span className="text-xl font-medium my-2">QR Codes</span>
+        )}
       </NavLink>
 
       <NavLink
@@ -127,7 +104,9 @@ const SideList = () => {
           <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
         </svg>
 
-        {isScreenMid && <span className="text-xl font-medium my-2">Settings</span>}
+        {isScreenMid && (
+          <span className="text-xl font-medium my-2">Settings</span>
+        )}
       </NavLink>
     </nav>
   );

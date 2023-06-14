@@ -195,6 +195,7 @@ module.exports.createLink = async function(req, res){
 };
 
 module.exports.edit = async function(req, res){
+    console.log("trying to edit")
     try {
         let editFormBody = req.body;
         let validationResult =await validateOne(editFormBody);
@@ -204,10 +205,6 @@ module.exports.edit = async function(req, res){
         let link  = await LINK.findById(req.params.id);
         if(!link) {
             throw new Error('link not found');
-        }
-        let linkKey = await LINK.findOne({key : req.body.key});
-        if(linkKey && link.id !== linkKey.id){
-            throw new Error('KEY Already in use');
         }
         link.key = req.body.key;
         link.title = req.body.title;
