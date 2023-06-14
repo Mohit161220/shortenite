@@ -12,13 +12,10 @@ passport.use(new localStrategy({
                 email : email
             });
             if(!user) {
-                console.log('=====================');
                 return done(null, false);
             } else if(user && validatePassword(password, user.password, user.salt) == false){
-                console.log('*********************');
                 return done(null, false);
             } else {
-                console.log('++++++++++++++++++++++');
                 console.log(`${user.email} signed in`);
                 return done(null, user);
             }
@@ -36,7 +33,6 @@ passport.deserializeUser(async function(id, done){
     console.log("got here");
     try {
         let user = await USER.findById(id);
-        // console.log('user ====> ', user);
         return done(null, user);
     } catch (error) {
         console.log('Error in finding user --> passport');

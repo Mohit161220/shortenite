@@ -4,6 +4,7 @@ const getIpAddressDetailsIpData = require('./ipAddressDetailsIpData');
 const getUserAgentDetails = async function details(userAgent){
     try {
         const parsedUserAgent = await parser(userAgent);
+        console.log(await parsedUserAgent);
         let returnObject = {
             browserName : parsedUserAgent.browser.name,
             browserVersion : parsedUserAgent.browser.version,
