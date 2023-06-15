@@ -4,6 +4,9 @@ const hitSchema = mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : 'Link'
     },
+    key : {
+        type : String
+    },
     ip : {
         type : String
     },
