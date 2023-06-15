@@ -26,6 +26,7 @@ const insertHit = async function(ip, userAgent, link, key){
             state : ipAddressDetails.addressRegion,
             city : ipAddressDetails.addressLocality,
         }
+        let currDate = await new Date().toJSON().slice(0, 10);
         let hit = await HITS.create({
             links : link,
             key : key,
@@ -33,6 +34,7 @@ const insertHit = async function(ip, userAgent, link, key){
             country : ipInfo.country,
             state : ipInfo.state,
             city : ipInfo.city,
+            clickDate : currDate,
             browserName : userAgentDetails.browserName,
             browserVersion : userAgentDetails.browserVersion,
             osName : userAgentDetails.osName,
