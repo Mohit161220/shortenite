@@ -18,7 +18,7 @@ var corsOptions = {
   credentials: true,
 };
 app.use(cors(corsOptions));
-// app.use(morgan("combined"));
+app.use(morgan("combined"));
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,7 +35,7 @@ app.use(
       maxAge: 1000 * 60 * 60 * 24,
     },
     store: MongoStore.create({
-        mongoUrl: 'mongodb://localhost:27017/shortenite',
+        mongoUrl: process.env.DATABASE_URL,
         autoRemove: "disabled",
       },
       function (error) {

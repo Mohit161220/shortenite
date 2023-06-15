@@ -19,8 +19,7 @@ const userSchema = mongoose.Schema({
 		required: true
 	},
 	imageName: {
-		type: String,
-		//required: true
+		type: String
 	},
 	salt : {
 		type : String,

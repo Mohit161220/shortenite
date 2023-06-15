@@ -14,8 +14,9 @@ const getUserAgentDetails = require('./userAgentDetails');
 **
 */
 
-const insertHit = async function(ip, userAgent, link){
+const insertHit = async function(ip, userAgent, link, key){
     console.log("got inside insertHit");
+    console.log(key);
     try {
         let userAgentDetails = await getUserAgentDetails(userAgent);
         let ipAddressDetails = await getIpAddressDetailsIpData(ip);
@@ -27,6 +28,7 @@ const insertHit = async function(ip, userAgent, link){
         }
         let hit = await HITS.create({
             links : link,
+            key : key,
             ip : ipInfo.ip,
             country : ipInfo.country,
             state : ipInfo.state,

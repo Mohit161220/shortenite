@@ -88,12 +88,6 @@ const LogIn = () => {
           />
         </div>
 
-        <Link to="/forgot_password" className="mx-auto sm:mx-14 mt-4">
-          <div className="text-xs sm:text-sm font-medium text-end text-blue-700 underline">
-            Forgot your password?
-          </div>
-        </Link>
-
         <Button
           type="submit"
           className="mx-auto mt-8 text-md sm:text-lg sm:mx-12 sm:mt-12"

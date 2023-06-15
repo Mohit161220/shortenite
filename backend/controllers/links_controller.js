@@ -4,6 +4,7 @@ const saltRounds = 10;
 const LINK = require('../models/links');
 const USER = require('../models/user');
 const QR = require('../models/qr');
+const HITS = require('../models/hits');
 const insertHit = require('../utils/hitInsert');
 const generateKey = require('../lib/keyGenerater');
 
@@ -32,18 +33,94 @@ module.exports.getLinkDetailsById = async function(req, res){
         if(user.id !== links.user.valueOf()) {
             throw new Error('Unauthorized Access to get a Link Details');
         }
-        links = await LINK.findById(req.params.id).populate({
+        links = await LINK.findById(req.params.id)
+        .populate({
             path : 'qrcode',
             Model : 'QRCode',
-            select : 'key url title'
+            select : 'key url title',
+            
         })
+        .populate({
+            path : 'hits',
+            Model : 'Hits',
+            select : 'country state browserName osName'
+        })
+
+        let browser = await HITS.aggregate([
+            {
+                "$match": {
+                    "key": "O4ktfYG5Rz"
+                }
+            },
+            {
+                "$group": {
+                    "_id": "$browserName",
+                    "count": {
+                      "$sum": 1
+                    }
+                  }
+            }
+        ]);
+
+        let os = await HITS.aggregate([
+            {
+                "$match": {
+                    "key": "O4ktfYG5Rz"
+                }
+            },
+            {
+                "$group": {
+                    "_id": "$osName",
+                    "count": {
+                      "$sum": 1
+                    }
+                  }
+            }
+        ]);
+
+        let state = await HITS.aggregate([
+            {
+                "$match": {
+                    "key": "O4ktfYG5Rz"
+                }
+            },
+            {
+                "$group": {
+                    "_id": "$state",
+                    "count": {
+                      "$sum": 1
+                    }
+                  }
+            }
+        ]);
+
+        let country = await HITS.aggregate([
+            {
+                "$match": {
+                    "key": "O4ktfYG5Rz"
+                }
+            },
+            {
+                "$group": {
+                    "_id": "$country",
+                    "count": {
+                      "$sum": 1
+                    }
+                  }
+            }
+        ]);
+
         let returnObj = {
             id : links._id,
             key : links.key,
             url : links.url,
             title : links.title,
             hitCount : links.hitCount,
-            qrcode : links.qrcode
+            qrcode : links.qrcode,
+            stateStats : state,
+            countryStats : country,
+            browserStats : browser,
+            osStats : os
         }
         return res.status(200).json({
             success : true,
@@ -63,12 +140,15 @@ module.exports.handleRedirect = async function(req, res){
         const link = await LINK.find({
             key : keyFromReq
         });
+        
         if(link.length == 0){
             return res.redirect('http://localhost:3000');
         }
+
         let ip = req.socket.remoteAddress;
         let userAgent = req.headers['user-agent'];
-        await insertHit(ip, userAgent, link[0]._id);
+
+        await insertHit(ip, userAgent, link[0]._id, link[0].key);
         return res.redirect(link[0].url);
     } catch(error) {
         return res.redirect('http://localhost:3000');
@@ -115,6 +195,7 @@ module.exports.createLink = async function(req, res){
 };
 
 module.exports.edit = async function(req, res){
+    console.log("trying to edit")
     try {
         let editFormBody = req.body;
         let validationResult =await validateOne(editFormBody);
@@ -124,10 +205,6 @@ module.exports.edit = async function(req, res){
         let link  = await LINK.findById(req.params.id);
         if(!link) {
             throw new Error('link not found');
-        }
-        let linkKey = await LINK.findOne({key : req.body.key});
-        if(linkKey && link.id !== linkKey.id){
-            throw new Error('KEY Already in use');
         }
         link.key = req.body.key;
         link.title = req.body.title;
@@ -198,8 +275,7 @@ async function validateOne(payload) {
         isFormValid = false;
         errors.title = 'Title Empty or typeof title is not String';
     }
-
-    // validator.isURL(payload.url, { require_tld : false }) == false || 
+ 
     if(!payload || validator.isEmpty(payload.url)){
         console.log(2)
         isFormValid = false;
