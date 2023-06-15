@@ -30,6 +30,9 @@ const hitSchema = mongoose.Schema({
     },
     osVersion : {
         type : String
+    },
+    clickDate : {
+        type : Date
     }
 }, {
     timestamps : true
