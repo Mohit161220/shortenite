@@ -311,7 +311,7 @@ const Home = () => {
             Proudly open-source
         </h1>
         <h3 className="title-font sm:text-2xl text-xl mt-5 text-center  text-gray-500">
-            Our source code is available on GitHub - feel free to read, review, or contributeto it however you want!
+            Our source code is available on GitHub - feel free to read, review, or contribute to it however you want!
         </h3>
         <div className="mx-auto w-24 h-24 mt-4 p-2">
           <a href="https://github.com/Mohit161220/shortenite">
