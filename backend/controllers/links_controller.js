@@ -46,10 +46,11 @@ module.exports.getLinkDetailsById = async function(req, res){
             select : 'country state browserName osName'
         })
 
+        let keyToSearch = links.key;
         let browser = await HITS.aggregate([
             {
                 "$match": {
-                    "key": "O4ktfYG5Rz"
+                    "key": keyToSearch
                 }
             },
             {
@@ -65,7 +66,7 @@ module.exports.getLinkDetailsById = async function(req, res){
         let os = await HITS.aggregate([
             {
                 "$match": {
-                    "key": "O4ktfYG5Rz"
+                    "key": keyToSearch
                 }
             },
             {
@@ -81,7 +82,7 @@ module.exports.getLinkDetailsById = async function(req, res){
         let state = await HITS.aggregate([
             {
                 "$match": {
-                    "key": "O4ktfYG5Rz"
+                    "key": keyToSearch
                 }
             },
             {
@@ -97,7 +98,7 @@ module.exports.getLinkDetailsById = async function(req, res){
         let country = await HITS.aggregate([
             {
                 "$match": {
-                    "key": "O4ktfYG5Rz"
+                    "key": keyToSearch
                 }
             },
             {
@@ -107,6 +108,22 @@ module.exports.getLinkDetailsById = async function(req, res){
                       "$sum": 1
                     }
                   }
+            }
+        ]);
+
+        let clickStats = await HITS.aggregate([
+            {
+                "$match": {
+                  "key": keyToSearch
+                }
+            },
+            {
+                "$group": {
+                  "_id": "$clickDate",
+                  "count": {
+                    "$sum": 1
+                  }
+                }
             }
         ]);
 
@@ -120,7 +137,8 @@ module.exports.getLinkDetailsById = async function(req, res){
             stateStats : state,
             countryStats : country,
             browserStats : browser,
-            osStats : os
+            osStats : os,
+            clickStats : clickStats
         }
         return res.status(200).json({
             success : true,
@@ -145,7 +163,8 @@ module.exports.handleRedirect = async function(req, res){
             return res.redirect('http://localhost:3000');
         }
 
-        let ip = req.socket.remoteAddress;
+        // let ip = req.socket.remoteAddress;
+        let ip = '106.206.196.106';
         let userAgent = req.headers['user-agent'];
 
         await insertHit(ip, userAgent, link[0]._id, link[0].key);
