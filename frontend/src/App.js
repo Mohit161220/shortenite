@@ -13,7 +13,6 @@ import CreateNewLink from "./dashboard/components/CreateNewLink.jsx";
 import CreateNewQr from "./dashboard/components/CreateNewQr.jsx";
 import LogIn from "./home/LogIn.jsx";
 import SignUp from "./home/SignUp.jsx";
-import Loading from "./home/Loading.jsx";
 import EditLink from "./dashboard/components/EditLink.jsx";
 import Error from "./home/Error.jsx";
 import EditQR from "./dashboard/components/EditQR.jsx"
@@ -43,7 +42,6 @@ function App() {
           <Route exact path="qrs/edit/:id" element={<EditQR/>}/> 
         </Route>
         <Route exact path="/error" element={<Error />} />
-        <Route exact path="/:shortUrl" element={<Loading />} />
       </Routes>
     </ChakraProvider>
   );

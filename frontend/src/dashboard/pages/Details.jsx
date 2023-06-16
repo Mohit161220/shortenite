@@ -7,11 +7,13 @@ import PieGraph from "../components/PieGraph";
 import axios from 'axios'
 
 const Details = () => {
-  const [id,setId]=useState(useParams())
+  const [id,setId]=useState(useParams().id)
   const [data,setData]=useState({})
   const getData=async()=>{
     try {
-      const res=await axios.post('',)
+      const res = await axios.get(`/links/details/${id}`);
+      setData(res.data.data);
+      console.log(res)
       
     } catch (error) {
       
@@ -19,15 +21,15 @@ const Details = () => {
   }
   useEffect(() => {
     getData()
-  })
+  },[])
   
   return (
     <div className="mr-2">
-      {/* <div className=" border-2 rounded-lg mt-4 pl-4">
+       <div className=" border-2 rounded-lg mt-4 pl-4">
         <div className="grid grid-cols-6">
-          <div className="col-span-5 text-4xl font-semibold p-2">{l.title}</div>
+          <div className="col-span-5 text-4xl font-semibold p-2">{data.title}</div>
           <div className="col-span-1">
-            <EditDeleteButton />
+            <EditDeleteButton type="links" key={id} id={id}  />
           </div>
         </div>
         <div className="grid grid-cols-2 mt-4 p-2">
@@ -36,13 +38,13 @@ const Details = () => {
               <div className="col-span-2 text-lg font-semibold">
                 Short Url :
               </div>
-              <div className="col-span-4 text-lg ">{l.key}</div>
+              <div className="col-span-4 text-lg ">{data.key}</div>
             </div>
             <div className="grid grid-cols-6 my-4">
               <div className="col-span-2 text-lg font-semibold">
                 Destination :
               </div>
-              <div className="col-span-4 text-lg ">{l.url}</div>
+              <div className="col-span-4 text-lg ">{data.url}</div>
             </div>
             <div className="grid grid-cols-6 my-4">
               <div className="col-span-2 text-lg font-semibold">Date :</div>
@@ -52,7 +54,7 @@ const Details = () => {
               <div className="col-span-2 text-lg font-semibold">
                 No. of Clicks :
               </div>
-              <div className="col-span-4 text-lg ">{l.hitCount}</div>
+              <div className="col-span-4 text-lg ">{data.hitCount}</div>
             </div>
             <div className="grid grid-cols-6 my-4">
               <div className="col-span-2 text-lg font-semibold">Qr Code:</div>
@@ -79,7 +81,7 @@ const Details = () => {
         <div className="col-span-1 border-2 rounded-lg pt-4 ml-2 h-72">
           <PieGraph />
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
