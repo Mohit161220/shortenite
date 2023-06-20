@@ -7,7 +7,7 @@ import axios from "axios";
 
 const Home = () => {
 
-  let screenSize = useMediaQuery("(min-width : 769px) and (max-width : 1400px)") ;
+  let screenSize = useMediaQuery("(min-width : 769px) and (max-width : 1300px)") ;
   console.log(screenSize);
   const { auth, setAuth } = useAuth();
   const getAuth = async () => {
@@ -49,18 +49,18 @@ const Home = () => {
       </header>
 
       <div className=" body-font lg:mx-28">
-        <div className="container mx-auto flex px-5 py-20 md:flex-row flex-col items-center">
+        <div className="container mx-auto flex px-5 py-12 md:flex-row flex-col items-center">
           
           <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 place-items-center ">
             {!screenSize &&
-              <h1 className="title-font sm:text-4xl text-2xl mb-4 text-center font-medium text-gray-900">
+              <h1 className="title-font sm:text-3xl text-2xl mb-4 text-center font-medium text-gray-900">
               Shorten URLs. Generate QR Codes.
               Simple and fast URL shortener!
               </h1>
             }
 
 
-            <div className="flex flex-col lg:flex-row justify-center content-center w-full lg:w-4/5  md:mt-10 mx-auto">
+            <div className="flex flex-col lg:flex-row justify-center content-center w-full lg:w-4/5  md:mt-6 mx-auto">
               <div className="mx-auto lg:mx-5 w-4/5 sm:max-lg:mb-6">
                 <div className="border-2 p-2 h-1/2 rounded-lg">
                   <svg xmlns="http://www.w3.org/2000/svg" className=" w-7 h-7 mx-auto" 
@@ -118,7 +118,7 @@ const Home = () => {
  
           <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
             {screenSize &&
-              <h1 className="title-font sm:text-4xl text-2xl mb-16 text-center font-medium text-gray-900">
+              <h1 className="title-font sm:text-3xl text-2xl mb-16 text-center font-medium text-gray-900">
               Shorten URLs. Generate QR Codes.
               Simple and fast URL shortener!
               </h1>
@@ -310,7 +310,7 @@ const Home = () => {
         <h1 className="title-font sm:text-4xl text-2xl text-center font-medium text-gray-900">
             Proudly open-source
         </h1>
-        <h3 className="title-font sm:text-2xl text-xl mt-5 text-center  text-gray-500">
+        <h3 className="title-font sm:text-2xl text-xl mt-5 text-center w-2/3 mx-auto text-gray-500">
             Our source code is available on GitHub - feel free to read, review, or contribute to it however you want!
         </h3>
         <div className="mx-auto w-24 h-24 mt-4 p-2">

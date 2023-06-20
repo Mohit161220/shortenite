@@ -6,6 +6,8 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
+  InputGroup,
+  InputRightElement
 } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -15,6 +17,9 @@ import useAuth from "../hooks/useAuth";
 const LogIn = () => {
   const { setAuth } = useAuth();
   const navigate = useNavigate();
+
+  const [show, setShow] = React.useState(false)
+  const handleClick = () => setShow(!show)
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -80,12 +85,21 @@ const LogIn = () => {
           <label className="text-md sm:text-lg font-normal" htmlFor="title">
             Password
           </label>
-          <Input
-            onChange={(e) => setPassword(e.target.value)}
-            className="mt-3 "
-            variant="outline"
-            placeholder=""
-          />
+          <InputGroup size='md'>
+            <Input
+              onChange={(e) => setPassword(e.target.value)}
+              className="mt-3"
+              pr='4.5rem'
+              type={show ? 'text' : 'password'}
+              placeholder='Enter password'
+            />
+            <InputRightElement width='4.5rem'className="mt-3">
+              <Button h='1.75rem' size='sm' onClick={handleClick}>
+                {show ? 'Hide' : 'Show'}
+              </Button>
+            </InputRightElement>
+          </InputGroup>
+          
         </div>
 
         <Button
